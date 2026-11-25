@@ -1,0 +1,26 @@
+<!doctype html><html lang="ar" dir="rtl"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sakan account test</title>
+<style>body{font-family:system-ui,sans-serif;background:#fcf3f6;color:#2e5a3a;margin:0;padding:16px}input,button{font-size:16px;padding:10px;margin:4px 0;width:100%;box-sizing:border-box;border-radius:10px;border:1px solid #d9b3c3}button{background:#e8739f;color:#fff;border:0}.c{background:#fff;border-radius:16px;padding:12px;margin:8px 0}#log{font-size:12px;color:#7a5a66;white-space:pre-wrap}</style>
+<h2>سَكَن، تجربة الحساب (بيانات وهمية بس)</h2>
+<div id="out" class="c">غير مسجّلة</div>
+<div class="c"><input id="em" type="email" placeholder="email"><input id="pw" type="password" placeholder="password (8+)">
+<button id="su">إنشاء حساب</button><button id="si">دخول</button><button id="so">خروج</button></div>
+<div class="c"><input id="bk" placeholder="اسم الكتاب (وهمي)"><input id="nt" placeholder="ملاحظة (وهمية)"><button id="add">حفظ ملاحظة</button><button id="ls">عرض ملاحظاتي</button></div>
+<div class="c"><button id="del" style="background:#a33">مسح حسابي وبياناتي</button></div>
+<div id="log"></div><p>Mariam studio</p>
+<script>
+const U='https://pmpxuvyzsgmrwdvpzmde.supabase.co',K='sb_publishable_KUBNVIdjcudn88AjZeirUg_dx8xrKXc';
+let S=JSON.parse(localStorage.getItem('sb_test_session')||'null');
+const $=i=>document.getElementById(i),log=t=>$('log').textContent=t;
+function show(){$('out').textContent=S?('مسجّلة: '+S.user.email):'غير مسجّلة'}
+async function api(p,o={}){const r=await fetch(U+p,{...o,headers:{apikey:K,'Content-Type':'application/json',...(S?{Authorization:'Bearer '+S.access_token}:{}),...(o.headers||{})}});const t=await r.text();let j;try{j=JSON.parse(t)}catch(e){j=t}return {s:r.status,j}}
+$('su').onclick=async()=>{const r=await api('/auth/v1/signup',{method:'POST',body:JSON.stringify({email:$('em').value,password:$('pw').value,options:{emailRedirectTo:location.href}})});log('signup '+r.s+' '+JSON.stringify(r.j).slice(0,200))};
+$('si').onclick=async()=>{const r=await api('/auth/v1/token?grant_type=password',{method:'POST',body:JSON.stringify({email:$('em').value,password:$('pw').value})});if(r.s==200){S=r.j;localStorage.setItem('sb_test_session',JSON.stringify(S))}log('signin '+r.s+' '+(r.s==200?'ok':JSON.stringify(r.j).slice(0,200)));show()};
+$('so').onclick=()=>{S=null;localStorage.removeItem('sb_test_session');show();log('signed out')};
+$('add').onclick=async()=>{const r=await api('/rest/v1/book_notes',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify({book:$('bk').value,note:$('nt').value})});log('add '+r.s+' '+(r.s==201?'ok':JSON.stringify(r.j).slice(0,200)))};
+$('ls').onclick=async()=>{const r=await api('/rest/v1/book_notes?select=book,note');log('list '+r.s+' count='+(Array.isArray(r.j)?r.j.length:'?')+' '+JSON.stringify(r.j).slice(0,300))};
+$('del').onclick=async()=>{if(!S||!confirm('مسح الحساب وكل بياناته؟'))return;const r=await api('/rest/v1/rpc/delete_my_data',{method:'POST',body:'{}'});if(r.s<300){S=null;localStorage.removeItem('sb_test_session');show()}log('delete '+r.s)};
+// handle email-confirm redirect hash
+if(location.hash.includes('access_token')){const p=new URLSearchParams(location.hash.slice(1));S={access_token:p.get('access_token'),user:{email:'(confirmed)'}};localStorage.setItem('sb_test_session',JSON.stringify(S));history.replaceState(null,'',location.pathname);}
+show();
+</script></html>
