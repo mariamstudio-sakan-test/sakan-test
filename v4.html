@@ -1,5 +1,5 @@
 <!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>سَكَن</title><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="theme-color" content="#f8b8cf">
+<title>سَكَن</title><link rel="manifest" href="manifest-v4.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="theme-color" content="#f8b8cf">
 <style>
 :root{--pk:#f8b8cf;--pk2:#fde3ec;--gr:#2e5a3a;--gr2:#dcebdc;--yl:#fdf0c8;--tx:#4a2f3b;--mut:#9a7686}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -59,7 +59,10 @@ body.gt .cell{color:#2b3314}body.gt .ph{background:#f1f6e6;border-color:#cfc98f}
 <nav class="tabs" id="tb"></nav>
 <script>
 const $=s=>document.querySelector(s),K='sakan_v4';
-let D=JSON.parse(localStorage.getItem(K)||'{}');const sv=()=>localStorage.setItem(K,JSON.stringify(D));
+let D;try{if(localStorage.getItem(K)===null&&localStorage.getItem('sakan_v2')!==null){const o=JSON.parse(localStorage.getItem('sakan_v2'));if(o&&typeof o==='object'){o._migrated='sakan_v2';localStorage.setItem(K,JSON.stringify(o))}}}catch(x){}
+D=JSON.parse(localStorage.getItem(K)||'{}');if(D._migrated&&!D._migNote){D._migNote=1;D._migShow=1}
+if('serviceWorker' in navigator&&location.protocol!=='file:')addEventListener('load',()=>navigator.serviceWorker.register('sw-v4.js',{scope:'./v4'}).catch(()=>{}));
+const sv=()=>localStorage.setItem(K,JSON.stringify(D));
 const g=(k,d)=>D[k]===undefined?d:D[k],st=(k,v)=>{D[k]=v;sv()};
 const today=()=>new Date().toISOString().slice(0,10);
 const e=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
