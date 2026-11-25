@@ -1,5 +1,5 @@
 <!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>سَكَن</title><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="theme-color" content="#f8b8cf">
+<title>سَكَن</title><link rel="manifest" href="manifest-v3.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="theme-color" content="#f8b8cf">
 <style>
 :root{--pk:#f8b8cf;--pk2:#fde3ec;--gr:#2e5a3a;--gr2:#dcebdc;--yl:#fdf0c8;--tx:#4a2f3b;--mut:#9a7686}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -122,5 +122,5 @@ function render(){const r=route();$('#tul').outerHTML=TULIP.replace('class="tu"'
  [['sy','sy'+today(),true],['me2','meth',false],['gl','goal',false],['th','theme',false]].forEach(a=>{if($('#'+a[0]))bindChips(a[0],a[1],a[2])});window.scrollTo(0,0)}
 addEventListener('hashchange',render);
 if(location.search.includes('demo')&&!D.books){D.courses=[{n:'كورس وهمي',l:'الدرس ٣',x:'الدرس ٤'}];sv()}
-render();if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
+render();if('serviceWorker' in navigator)navigator.serviceWorker.register("sw-v3.js");
 </script></body></html>
