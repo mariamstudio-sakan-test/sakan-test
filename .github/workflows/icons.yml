@@ -1,0 +1,25 @@
+name: build-icons
+on:
+  push:
+    paths:
+      - icons.b64.txt
+      - .github/workflows/icons.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  icons:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: decode icons
+        run: |
+          while read -r name data; do echo "$data" | base64 -d > "$name"; done < icons.b64.txt
+          ls -la *.png
+      - name: commit icons
+        run: |
+          git config user.name "sakan-test-bot"
+          git config user.email "sakan-test-bot@users.noreply.github.com"
+          git add *.png
+          git commit -m "Add app icons" || echo "nothing to commit"
+          git push
