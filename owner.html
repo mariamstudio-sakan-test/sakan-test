@@ -16,6 +16,6 @@ window.tg=k=>{const i=cfg.hidden.indexOf(k);i<0?cfg.hidden.push(k):cfg.hidden.sp
 window.lb=(k,v)=>{v=v.trim();if(v)cfg.labels[k]=v;else delete cfg.labels[k]};
 window.mv=(i,d)=>{const o=order(),j=i+d;if(j<0||j>=o.length)return;[o[i],o[j]]=[o[j],o[i]];cfg.order=o;draw()};
 window.cl=v=>{if(v)cfg.colors['--pk']=v;else delete cfg.colors['--pk']};
-async function save(){const nv=ver+1,body={v:nv,config:Object.assign({},cfg,{v:nv}),updated_at:new Date().toISOString()};const r=await fetch(U+'/rest/v1/app_config?id=eq.1',{method:'PATCH',headers:{apikey:K,Authorization:'Bearer '+tok,'Content-Type':'application/json',Prefer:'return=representation'},body:JSON.stringify(body)});const j=await r.json();if(r.ok&&j.length){ver=nv;$('#msg').textContent='اتحفظ. النسخة '+nv}else$('#msg').textContent='ما اتحفظش (الحساب مش مالكة اللوحة أو في خطأ)'}
+async function save(){const m=t=>{const e=document.getElementById('msg');if(e)e.textContent=t};try{const nv=ver+1,body={v:nv,config:Object.assign({},cfg,{v:nv}),updated_at:new Date().toISOString()};const r=await fetch(U+'/rest/v1/app_config?id=eq.1',{method:'PATCH',headers:{apikey:K,Authorization:'Bearer '+tok,'Content-Type':'application/json',Prefer:'return=representation'},body:JSON.stringify(body)});let j=null;try{j=await r.json()}catch(x){}if(r.ok&&Array.isArray(j)&&j.length){ver=nv;m('اتحفظ. النسخة '+nv)}else m('ما اتحفظش: الحساب ده مش مالكة اللوحة (رمز '+r.status+')')}catch(x){m('ما اتحفظش: مشكلة اتصال')}}
 window.login=login;window.save=save;draw();
 </script></body></html>
