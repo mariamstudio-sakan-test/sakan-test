@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>سَكَن</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="سَكَن"><meta name="theme-color" content="#e8739f">
+<style>
+:root{--p:#e8739f;--pl:#fcd9e4;--bg:#fcf3f6;--g:#2f5a34;--t:#96707a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--g);font-family:"Noto Naskh Arabic","Noto Sans Arabic",system-ui,sans-serif;padding-bottom:84px}
+header{background:var(--pl);padding:calc(env(safe-area-inset-top) + 18px) 18px 14px;border-radius:0 0 28px 28px;box-shadow:0 4px 10px #0001}
+h1{margin:0;font-size:26px}h1 small{display:block;font-size:14px;color:var(--t);font-weight:400}
+main{padding:14px}.note{color:var(--t);font-size:13px;text-align:center;margin:10px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:#fff;border-radius:22px;padding:16px;box-shadow:0 3px 8px #0001;border:0;text-align:right;font:inherit;color:inherit}
+.card b{display:block;font-size:18px;margin-bottom:4px}.card span{font-size:13px;color:var(--t)}
+.btn{background:var(--p);color:#fff;border:0;border-radius:30px;padding:12px 22px;font:inherit;font-size:17px;margin:8px 0}
+.btn.o{background:#fff;color:var(--g);border:2px solid var(--p)}
+input,textarea,select{width:100%;font:inherit;font-size:16px;padding:10px;border-radius:14px;border:2px solid #e8c9d3;margin:6px 0;background:#fff}
+.q{background:var(--pl);border-radius:20px;padding:14px;margin:10px 0}
+nav{position:fixed;bottom:0;inset-inline:0;display:flex;background:#fbe9ef;border-top:1px solid #e3c4cc;padding:8px 0 calc(env(safe-area-inset-bottom) + 8px)}
+nav button{flex:1;background:none;border:0;font:inherit;font-size:13px;color:#aaa0a0}nav button.on{color:var(--g);font-weight:700}
+.brand{font-family:Georgia,serif;text-align:center;color:var(--t);margin:18px 0}
+section{display:none}section.on{display:block}
+</style></head><body>
+<header><h1>سَكَن<small id="sub">نسخة تجريبية، بيانات وهمية على جهازك بس</small></h1></header>
+<main>
+<section id="home" class="on"><div class="grid">
+<button class="card" data-go="hawwa"><b>حوّاء</b><span>تسجيل تجريبي</span></button>
+<button class="card" data-go="books"><b>كتبي</b><span>اقتباسات وتدوينات</span></button>
+<button class="card" data-go="settings"><b>حسابي</b><span>مسح بياناتي</span></button>
+<button class="card" data-go="install"><b>حالة التثبيت</b><span>هل فُتح كتطبيق؟</span></button></div></section>
+<section id="hawwa"><h2>حاسّة بإيه النهارده؟</h2>
+<label>اللي حاسّة بيه</label><select id="sym"><option>تعب</option><option>صداع</option><option>تقلب مزاج</option></select>
+<label>ملاحظة (مثال وهمي)</label><textarea id="hn" rows="3"></textarea>
+<button class="btn" id="hs">حفظ على جهازي</button><div id="hl"></div>
+<p class="note">للتجربة بس. ماتكتبيش بيانات حقيقية.</p></section>
+<section id="books"><h2>كتبي</h2><input id="bt" placeholder="اسم الكتاب (مثال)"><textarea id="bq" rows="3" placeholder="اكتبي الاقتباس هنا"></textarea>
+<button class="btn" id="bs">حفظ الاقتباس</button><div id="bl"></div></section>
+<section id="settings"><h2>حسابي</h2><p>الحسابات بالإيميل لسه مش متوصلة في النسخة دي. ده اختبار للتثبيت والتخزين على الجهاز.</p>
+<button class="btn o" id="del">مسح كل بياناتي من الجهاز</button><div id="dm" class="note"></div></section>
+<section id="install"><h2>حالة التثبيت</h2><div class="q" id="st"></div>
+<div class="q">تنبيهات وهي مقفولة: لسه مش متجرّبة في النسخة دي.</div></section>
+<div class="brand">Mariam studio</div></main>
+<nav><button class="on" data-go="home">الرئيسية</button><button data-go="hawwa">حوّاء</button><button data-go="books">كتبي</button><button data-go="settings">حسابي</button></nav>
+<script>
+const $=s=>document.querySelector(s),K='sakan.test.v1';
+let db;try{db=JSON.parse(localStorage.getItem(K))||{h:[],b:[]}}catch(e){db={h:[],b:[]}}
+const save=()=>localStorage.setItem(K,JSON.stringify(db));
+function esc(t){const d=document.createElement('div');d.textContent=t;return d.innerHTML}
+function render(){$('#hl').innerHTML=db.h.map(x=>`<div class="q">${esc(x.s)}، ${esc(x.n)}</div>`).join('');
+$('#bl').innerHTML=db.b.map(x=>`<div class="q"><b>${esc(x.t)}</b><br>${esc(x.q)}</div>`).join('')}
+function go(id){document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===id));
+document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.go===id));if(id==='install')status()}
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
+$('#hs').onclick=()=>{db.h.push({s:$('#sym').value,n:$('#hn').value});save();$('#hn').value='';render()};
+$('#bs').onclick=()=>{if(!$('#bq').value)return;db.b.push({t:$('#bt').value,q:$('#bq').value});save();$('#bq').value='';render()};
+$('#del').onclick=function(){if(!this.dataset.c){this.dataset.c=1;this.textContent='اضغطي تاني للتأكيد';return}
+localStorage.removeItem(K);db={h:[],b:[]};render();this.dataset.c='';this.textContent='مسح كل بياناتي من الجهاز';$('#dm').textContent='اتمسحت كل البيانات من الجهاز.'};
+function status(){const sa=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+$('#st').innerHTML='مفتوح كتطبيق (من الأيقونة): <b>'+(sa?'أيوه':'لأ، لسه في المتصفح')+'</b><br>تخزين على الجهاز: <b>'+(('serviceWorker' in navigator)?'شغال':'غير مدعوم')+'</b>'}
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+render();
+if(location.search.includes('demo')&&!db.h.length){db.h.push({s:'تعب',n:'مثال وهمي'});db.b.push({t:'اسم الكتاب (مثال)',q:'اقتباس وهمي للتجربة'});render()}
+if(location.hash.length>1&&document.getElementById(location.hash.slice(1)))go(location.hash.slice(1));
+</script></body></html>
