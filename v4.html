@@ -120,18 +120,20 @@ return `<div class="pills">`+HWD.map((n,i)=>`<button class="pill ${i===d?'on':''
 
 const SBU='https://pmpxuvyzsgmrwdvpzmde.supabase.co',SBK='sb_publishable_KUBNVIdjcudn88AjZeirUg_dx8xrKXc',VAPID='BIhqSIOLhLE_YlxoMXSmyPjGSzWqZkyEyRle2nP496J9ChdmDk5w95WtERafAU8GuBnipCcMSF51TE7KlExSxSc';
 const u8=b=>{const r=atob((b+'='.repeat((4-b.length%4)%4)).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from([...r].map(c=>c.charCodeAt(0)))};
-const pcid=()=>{let c=localStorage.getItem('sakan_push_cid');if(!c){c=crypto.randomUUID();localStorage.setItem('sakan_push_cid',c)}return c};
+const pcid=()=>{let c=localStorage.getItem('sakan_push_secret');if(!c){const a=new Uint8Array(32);crypto.getRandomValues(a);c=btoa(String.fromCharCode(...a)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');localStorage.setItem('sakan_push_secret',c)}return c};
 const pushH={'apikey':SBK,'Content-Type':'application/json'};
-const pushDel=()=>fetch(SBU+'/rest/v1/rpc/delete_my_push',{method:'POST',headers:pushH,body:JSON.stringify({cid:pcid()})});
+const pushRpc=(f,b)=>fetch(SBU+'/rest/v1/rpc/'+f,{method:'POST',headers:pushH,body:JSON.stringify(b)});
+const pushDel=async()=>{try{const r=await pushRpc('delete_my_push',{secret:pcid()});if(r.ok){localStorage.removeItem('sakan_push_pending_del');localStorage.removeItem('sakan_push_secret');return true}}catch(e){}localStorage.setItem('sakan_push_pending_del','1');return false};
 let _pt;window.pushSyncSoon=()=>{if(localStorage.getItem('sakan_push_on')!=='1')return;clearTimeout(_pt);_pt=setTimeout(pushSync,800)};
-window.pushSync=async()=>{try{const reg=await navigator.serviceWorker.ready,sub=await reg.pushManager.getSubscription();if(!sub)return 'nosub';const j=sub.toJSON(),now=Date.now(),seen={},rows=[];
-Object.keys(D).filter(k=>k.indexOf('tasks')===0).forEach(k=>(D[k]||[]).forEach(x=>{if(x.rm&&!x.d){const t=new Date(x.rm).getTime();if(t>now){const iso=new Date(t).toISOString();if(!seen[iso]){seen[iso]=1;rows.push({client_id:pcid(),endpoint:j.endpoint,p256dh:j.keys.p256dh,auth:j.keys.auth,remind_at:iso})}}}}));
-await pushDel();if(rows.length)await fetch(SBU+'/rest/v1/push_subs',{method:'POST',headers:{...pushH,Prefer:'return=minimal'},body:JSON.stringify(rows)});return 'ok '+rows.length}catch(e){return 'err'}};
+window.pushSync=async()=>{try{if(localStorage.getItem('sakan_push_on')!=='1')return 'off';const reg=await navigator.serviceWorker.ready,sub=await reg.pushManager.getSubscription();if(!sub)return 'nosub';const j=sub.toJSON(),now=Date.now(),seen={},times=[];
+Object.keys(D).filter(k=>k.indexOf('tasks')===0).forEach(k=>(D[k]||[]).forEach(x=>{if(x.rm&&!x.d){const t=new Date(x.rm).getTime();if(t>now+30000){const iso=new Date(t).toISOString();if(!seen[iso]&&times.length<20){seen[iso]=1;times.push(iso)}}}}));
+const r=await pushRpc('register_push',{secret:pcid(),ep:j.endpoint,p256:j.keys.p256dh,au:j.keys.auth,times});return r.ok?'ok '+times.length:'err '+r.status}catch(e){return 'err'}};
 window.pushOn=async()=>{try{if(!('PushManager' in window)||!('serviceWorker' in navigator)){alert('الجهاز أو المتصفح ده مش بيدعم التنبيهات. على الآيفون لازم تضيفي التطبيق للشاشة الرئيسية الأول.');return}
 const pr=await Notification.requestPermission();if(pr!=='granted'){alert('التنبيهات اتقفلت من إعدادات الجهاز. مش هنبعت حاجة.');render();return}
 const reg=await navigator.serviceWorker.ready;let sub=await reg.pushManager.getSubscription();if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:u8(VAPID)});
-localStorage.setItem('sakan_push_on','1');await pushSync();render()}catch(e){alert('ما اتفعلتش التنبيهات: '+(e&&e.name||'خطأ'));render()}};
-window.pushOff=async()=>{try{localStorage.removeItem('sakan_push_on');const reg=await navigator.serviceWorker.ready,sub=await reg.pushManager.getSubscription();await pushDel();if(sub)await sub.unsubscribe()}catch(e){}render()};
+localStorage.setItem('sakan_push_on','1');const r=await pushSync();if(r.indexOf('ok')!==0){localStorage.removeItem('sakan_push_on');try{await sub.unsubscribe()}catch(e){}alert('ما قدرناش نفعّل التنبيهات دلوقتي. جرّبي بعدين.')}render()}catch(e){alert('ما اتفعلتش التنبيهات: '+(e&&e.name||'خطأ'));render()}};
+window.pushOff=async()=>{localStorage.removeItem('sakan_push_on');try{const reg=await navigator.serviceWorker.ready,sub=await reg.pushManager.getSubscription();if(sub)await sub.unsubscribe()}catch(e){}await pushDel();render()};
+if(localStorage.getItem('sakan_push_pending_del')==='1')pushDel();
 window.hwTick=(id,v)=>{const d=window._hd==null?hwToday():window._hd,dn=g('hwd',{}),k=hwKey(d)+'|'+id;if(v)dn[k]=1;else delete dn[k];st('hwd',dn);render()};
 window.hwAdd=d=>{const v=$('#hwn').value.trim();if(!v)return;const h=hwGet();h.days[d].push({id:'u'+Date.now(),t:v});st('hw',h);render()};
 window.hwEdit=(d,i)=>{const h=hwGet(),t=h.days[d][i];const v=prompt('عدّلي المهمة',t.t);if(v==null)return;const x=v.trim();if(!x)return;t.t=x;st('hw',h);render()};
