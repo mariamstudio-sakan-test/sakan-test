@@ -228,3 +228,5 @@ const bs=NW0.map((t,i)=>o.hide.includes(i)?'':`<div class="row"><label for="nw${
 const cs=o.add.map((a,i)=>`<div class="row"><label for="nc${a.id}">${e(a.t)}</label><input type="checkbox" id="nc${a.id}" ${cc[a.id]?'checked':''} onchange="tg('nc','${a.id}',this.checked)"><button class="pill" onclick="gcEdit(${i})">تعديل</button><button class="pill" onclick="gcDel(${i})">مسح</button></div>`).join('');
 shell('علاقتي بربنا','كل عبادة ليها علامة صح');
 return `<div class="card"><h3>الصلاة في وقتها</h3>${MAT}${checklist('pr',PR)}</div><div class="card"><h3>نوافل وأوراد</h3>${bs}${cs}${o.hide.length?`<button class="pill" onclick="gcShow()">رجّعي المخفي (${o.hide.length})</button>`:''}</div><div class="card"><h3>أضيفي عبادة خاصة بيكي</h3><div class="row"><input id="gcn" maxlength="80" placeholder="اسم العبادة" style="flex:1"><button class="btn" onclick="gcAdd()">إضافة</button></div><p class="note">التعديل ده ليكي إنتي بس وعلى جهازك، ومش بيغيّر حاجة عند حد تاني.</p></div><p class="note">العلامات بتتحفظ على جهازك للتجربة.</p>`};
+
+try{render()}catch(e){}
