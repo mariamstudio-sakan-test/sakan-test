@@ -443,4 +443,25 @@ const _meG=H.me;H.me=()=>{let h=_meG();const cur=g('theme')||'أخضر';h=h.repl
   return `<div class="card" id="start"><h3>ابدأ من هنا (${n} من ${S.length})</h3>${rows}<button class="chip" onclick="startHide()">${n===S.length?'تمام، اخفِ الكارت':'اخفِ الكارت'}</button></div>`};
  const oHs=H.home;H.home=()=>{const h=oHs(),a=h.indexOf('id="grt"');if(a<0)return h;const b=h.indexOf('</p></div>',a);if(b<0)return h;const k=b+10;return h.slice(0,k)+stCard()+h.slice(k)};
 }
+/* v33+: "سنتك بالألوان" year of mood dots. Reads only the general mood (key mood+date) already on the device. No upload, no auto share. */
+{
+ const MC=['#7b5ea7','#5b8def','#b8b8b8','#7fbf7b','#f2b134'],pad=n=>String(n).padStart(2,'0');
+ const nowY=()=>+today().slice(0,4);
+ window.yrData=y=>{const out=[];for(let m=0;m<12;m++){const n=new Date(Date.UTC(y,m+1,0)).getUTCDate(),a=[];for(let d=1;d<=31;d++){if(d>n){a.push(null);continue}const v=g('mood'+y+'-'+pad(m+1)+'-'+pad(d),-1);a.push(Number.isInteger(v)&&v>=0&&v<=4?v:-1)}out.push(a)}return out};
+ window.yrStat=y=>{const D2=yrData(y),t=today();let logged=0,days=0;for(let m=0;m<12;m++)for(let d=0;d<31;d++){const v=D2[m][d];if(v===null)continue;if(y+'-'+pad(m+1)+'-'+pad(d+1)>t)continue;days++;if(v>=0)logged++}return{logged,days}};
+ window.yrNav=k=>{const y=(window._my||nowY())+k;if(y>nowY()||y<nowY()-20)return;window._my=y;render()};
+ window.yrImg=()=>{try{const y=window._my||nowY(),D2=yrData(y),c=document.createElement('canvas');c.width=1080;c.height=1500;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,1080,1500);x.fillStyle='#4a2f3b';x.textAlign='center';x.font='bold 56px sans-serif';x.fillText('سنتك بالألوان '+y,540,100);
+  const L=70,T=190,cw=(1080-2*L-60)/12,rh=(1500-T-150)/31;x.font='20px sans-serif';x.fillStyle='#777';for(let m=0;m<12;m++)x.fillText(String(m+1),L+60+cw*m+cw/2,T-14);
+  for(let d=0;d<31;d++){x.fillStyle='#777';x.fillText(String(d+1),L+14,T+rh*d+rh/2+7);for(let m=0;m<12;m++){const v=D2[m][d];if(v===null)continue;x.beginPath();x.arc(L+60+cw*m+cw/2,T+rh*d+rh/2,Math.min(cw,rh)*0.36,0,7);if(v>=0){x.fillStyle=MC[v];x.fill()}else{x.strokeStyle='#e4d6dc';x.lineWidth=2;x.stroke()}}}
+  x.fillStyle='#4a2f3b';x.font='bold 30px sans-serif';x.fillText('Mariam studio',540,1450);
+  c.toBlob(b=>{if(!b){yrMsg('معرفتش أعمل الصورة.');return}const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='sakan-year-'+y+'.png';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},4000);window._yrb=b.size;yrMsg('بدأ التحميل. اتأكد إن الصورة في التحميلات. الصورة ألوان بس، من غير كتابة.')},'image/png')}catch(er){yrMsg('معرفتش أعمل الصورة.')}};
+ const yrMsg=m=>{const el=document.getElementById('yrmsg');if(el)el.textContent=m};
+ const yrCard=()=>{const y=window._my||nowY(),D2=yrData(y),S=yrStat(y);
+  let grid='<div style="display:grid;grid-template-columns:22px repeat(12,1fr);gap:2px 0;direction:ltr;align-items:center;justify-items:center" id="yrgrid" role="img" aria-label="'+e('سنة '+y+': سجّلت مزاجك '+S.logged+' يوم من '+S.days)+'"><span></span>'+[1,2,3,4,5,6,7,8,9,10,11,12].map(m=>'<small style="color:var(--mut);font-size:10px">'+m+'</small>').join('');
+  for(let d=0;d<31;d++){grid+='<small style="color:var(--mut);font-size:9px">'+(d+1)+'</small>';for(let m=0;m<12;m++){const v=D2[m][d];grid+=v===null?'<span></span>':'<i data-v="'+v+'" style="display:block;width:11px;height:11px;border-radius:50%;'+(v>=0?'background:'+MC[v]:'border:1.5px solid #e4d6dc;box-sizing:border-box')+'"></i>'}}
+  grid+='</div>';
+  const leg='<div style="display:flex;justify-content:space-between;margin-top:8px">'+[0,1,2,3,4].map(i=>'<span style="display:flex;flex-direction:column;align-items:center;width:30px;line-height:0"><i style="display:block;width:12px;height:12px;border-radius:50%;background:'+MC[i]+';margin-bottom:3px"></i><span style="width:26px;height:26px;display:block">'+FACE(i)+'</span></span>').join('')+'</div>';
+  return '<div class="card" id="yr"><h3>سنتك بالألوان</h3><div style="display:flex;justify-content:space-between;align-items:center"><button class="chip" onclick="yrNav(-1)" aria-label="السنة اللي قبلها">‹</button><b>'+y+'</b><button class="chip" onclick="yrNav(1)" aria-label="السنة اللي بعدها">›</button></div><p class="note">سجّلت مزاجك '+S.logged+' يوم من '+S.days+'. كل نقطة يوم، وأرقام فوق الأشهر وعلى الجنب للتواريخ.</p>'+grid+leg+'<p class="note">الألوان من مزاجك العام في يومياتي بس. مزاج صفحة حوّاء مش بيظهر هنا. الصورة بتتحفظ على جهازك بس ومفيش مشاركة تلقائية.</p><button class="btn" onclick="yrImg()">احفظ السنة كصورة</button><p class="note" id="yrmsg" role="status"></p></div>'};
+ const oDy=H.day;H.day=()=>{const h=oDy(),a=h.indexOf('class="mood">');if(a<0)return h+yrCard();const b=h.indexOf('</div></div>',a);return b<0?h+yrCard():h.slice(0,b+12)+yrCard()+h.slice(b+12)};
+}
 try{render()}catch(e){}
