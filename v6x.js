@@ -431,14 +431,15 @@ const _meG=H.me;H.me=()=>{let h=_meG();const cur=g('theme')||'أخضر';h=h.repl
 }
 /* v30: first-week starter card on home, 3 small steps, auto-ticked from device state, can be hidden */
 {
- const ob=window.bkSave;if(ob)window.bkSave=function(){const r=ob.apply(this,arguments);try{localStorage.setItem('sakan_bk','1')}catch(e){}return r};
+ const ob=window.bkSave;if(ob)window.bkSave=function(){const r=ob.apply(this,arguments);try{if(localStorage.getItem('sakan_bk')!=='2')localStorage.setItem('sakan_bk','p')}catch(e){}return r};
+ window.bkConfirm=()=>{try{localStorage.setItem('sakan_bk','2')}catch(e){}render()};
  window.startHide=()=>{try{localStorage.setItem('sakan_start_off','1')}catch(e){}render()};
  const stSteps=()=>[
   {t:'اكتب أول صفحة في يومياتك',n:'سطر واحد عن مشاعرك النهارده يكفي. بتتحفظ على جهازك بس.',d:(()=>{try{return g('djr',[]).length>0}catch(e){return false}})(),go:'day',b:'افتح يومياتي'},
-  {t:'فعّل تنبيه «عندك مهمة»',n:'من حسابي. لسه ما اتجرّبش على موبايل حقيقي.',d:localStorage.getItem('sakan_push_on')==='1',go:'me',b:'افتح حسابي'},
-  {t:'احفظ نسخة احتياطية',n:'ملف على موبايلك فيه بياناتك، علشان لو الجهاز اتغيّر ما يضيعش حاجة.',d:localStorage.getItem('sakan_bk')==='1',go:'me',b:'افتح حسابي'}];
+  {t:'فعّل تنبيه «عندك مهمة»',n:localStorage.getItem('sakan_push_on')==='1'?'التنبيه متفعّل على الجهاز، لكن وصوله لسه ما اتجرّبش على موبايل حقيقي.':'من حسابي. لسه ما اتجرّبش على موبايل حقيقي.',d:localStorage.getItem('sakan_push_on')==='1',go:'me',b:'افتح حسابي'},
+  {t:'احفظ نسخة احتياطية',n:'ملف على موبايلك فيه بياناتك، علشان لو الجهاز اتغيّر ما يضيعش حاجة.',d:localStorage.getItem('sakan_bk')==='2',p:localStorage.getItem('sakan_bk')==='p',go:'me',b:'افتح حسابي'}];
  const stCard=()=>{if(localStorage.getItem('sakan_start_off')==='1')return '';const S=stSteps(),n=S.filter(x=>x.d).length;
-  const rows=S.map(x=>`<div class="row" style="display:block"><b>${x.d?'✓ ':''}${e(x.t)}</b><div class="note">${e(x.n)}</div>${x.d?'':`<button class="chip" onclick="go('${x.go}')">${x.b}</button>`}</div>`).join('');
+  const rows=S.map(x=>`<div class="row" style="display:block"><b>${x.d?'✓ ':''}${e(x.t)}</b><div class="note">${e(x.n)}</div>${x.d?'':`<button class="chip" onclick="go('${x.go}')">${x.b}</button>`}${x.p?'<div class="note">ضغطت «حفظ». شوف في التحميلات إن الملف اتحفظ فعلًا.</div><button class="chip" onclick="bkConfirm()">أكدت إن الملف اتحفظ</button>':''}</div>`).join('');
   return `<div class="card" id="start"><h3>ابدأ من هنا (${n} من ${S.length})</h3>${rows}<button class="chip" onclick="startHide()">${n===S.length?'تمام، اخفِ الكارت':'اخفِ الكارت'}</button></div>`};
  const oHs=H.home;H.home=()=>{const h=oHs(),a=h.indexOf('id="grt"');if(a<0)return h;const b=h.indexOf('</p></div>',a);if(b<0)return h;const k=b+10;return h.slice(0,k)+stCard()+h.slice(k)};
 }
