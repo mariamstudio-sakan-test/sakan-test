@@ -403,4 +403,30 @@ const _meG=H.me;H.me=()=>{let h=_meG();const cur=g('theme')||'أخضر';h=h.repl
  const _meT=H.me;H.me=()=>{const h=_meT();const c='<div class="card"><h3>جولة سريعة</h3><p class="note">٥ خطوات بتنوّرلك كل جزء على الشاشة.</p><button class="btn" onclick="tourOpen()">ابدأ الجولة</button></div><div class="card"><h3>تجربة التنبيه</h3><p class="note">بعد ما تفعّلي التنبيهات، اضغطي هنا وهيجيلك تنبيه «عندك مهمة» خلال دقيقة. بيتأكد إن التنبيه بيوصل لجهازك فعلًا.</p><button class="btn" onclick="pushTest()">جرّبي التنبيه</button><p class="note" id="ptmsg" role="status"></p></div>';const k='<div class="card"><h3>الوضع</h3>';return h.includes(k)?h.replace(k,c+k):h+c};
  if(NEWU){setTimeout(()=>{if(D.tour===undefined&&!window.PLOCK)tourOpen()},600)}
 }
+/* v30: visible Google sign-in, privacy page, account deletion (approved 20:21:45) */
+{
+ window.ACM='';
+ window.accountDelete=async()=>{const S=authS();if(!S)return;
+  if(!confirm('هتحذف حسابك نهائيًا من السيرفر: روابط الدعوات اللي أضفتها، وتنبيهاتك، وتسجيل دخولك. مش هتقدر ترجّعه. يومياتك على جهازك مش هتتمسح من هنا، وتقدر تمسحها من «مسح بياناتي». تكمّل؟'))return;
+  window.PLOCK=1;render();let msg='';
+  try{await pushBeforeSignOut();const r=await sbf('/rest/v1/rpc/delete_my_account',{method:'POST',body:'{}'});
+   if(r.ok){localStorage.removeItem('sakan_auth');profSwitch();msg='اتحذف حسابك من السيرفر.'}
+   else{let t='';try{t=await r.text()}catch(e){}msg=(r.status===403||t.indexOf('owner')>=0)?'الحساب ده مش بيتحذف من التطبيق.':'ما اتحذفش. جرّب تاني بعد شوية.'}}
+  catch(er){msg='مفيش اتصال. ما اتحذفش.'}
+  window.PLOCK=0;window.ACM=msg;render()};
+ const acctCard=()=>{const S=authS();let h='<div class="card" id="acct"><h3>الحساب</h3>';
+  if(window.ACM)h+='<p class="note" role="status">'+esc(window.ACM)+'</p>';
+  if(!S){h+='<p class="note">سجّل دخول بجوجل لو عايز تضيف رابط دعوتك أو تربط تنبيهاتك بحسابك. يومياتك وصحتك ومزاجك بتفضل على جهازك بس ومش بتتبعت. جوجل ممكن تعرض رسالة إن التطبيق في وضع التجربة، ودي طبيعية لأن النسخة لسه تجريبية.</p><button class="btn" onclick="invGoogle()">سجّل دخول بجوجل</button>'}
+  else{h+='<p class="note">داخل بـ '+esc(S.em||'')+'</p><button class="btn" onclick="go(\'inv\')">دعوات الناس</button><button class="btn" onclick="invOut()">خروج</button><button class="btn red" onclick="accountDelete()">احذف حسابي نهائيًا</button><p class="note">الحذف بيمسح حسابك وروابطك وتنبيهاتك من السيرفر. اللي على جهازك بيفضل لحد ما تمسحه بـ«مسح بياناتي».</p>'}
+  return h+'<button class="btn" onclick="go(\'priv\')">الخصوصية</button></div>'};
+ const _meA=H.me;H.me=()=>{const h=_meA();const k='<div class="card"><h3>الوضع</h3>';return h.includes(k)?h.replace(k,acctCard()+k):h+acctCard()};
+ H.priv=()=>{shell('الخصوصية','نسخة تجريبية. بنقولك بالظبط إيه بيتحفظ وفين');
+  const c=(t,b)=>'<div class="card"><h3>'+t+'</h3>'+b+'</div>';
+  return c('على جهازك بس','<p class="note">يومياتك، صحتك، دورتك، مزاجك، كتبك، مهامك، اسمك، والنسخة الاحتياطية اللي بتحفظها. دي مش بتتبعت لأي سيرفر ولا بتظهر لحد. لو مسحت بيانات المتصفح أو غيّرت الجهاز من غير نسخة احتياطية، بتضيع.</p>')
+  +c('على السيرفر لو استخدمت التنبيهات','<p class="note">وقت التذكير وعنوان الإشعار الخاص بجهازك، علشان يوصلك التنبيه. من غير عنوان المهمة ومن غير أي بيانات صحية. نص الإشعار دايمًا «عندك مهمة».</p>')
+  +c('على السيرفر لو سجّلت دخول بجوجل','<p class="note">جوجل بتبعت الإيميل والاسم والصورة الأساسية، وبيتحفظوا مع حسابك على Supabase (خدمة قاعدة البيانات اللي بنستخدمها). كمان روابط الدعوات اللي بتضيفها.</p>')
+  +c('إيه اللي ملوش وجود','<p class="note">مفيش إعلانات ولا أدوات تتبع في التطبيق.. الصفحات متاحة على GitHub Pages، وروابط زي يوتيوب بتفتح بس لما تدوس عليها.</p>')
+  +c('تحكمك في بياناتك','<p class="note">«خروج» بيطلّعك من الحساب على الجهاز. «مسح بياناتي» بيمسح اللي على الجهاز وروابطك وتنبيهاتك. «احذف حسابي نهائيًا» بيمسح الحساب كله من السيرفر.</p><button class="btn" onclick="go(\'me\')">رجوع لحسابي</button>')
+  +c('تنبيه','<p class="note">دي نسخة تجريبية لسه بتتجرّب، ومش متجرّبة على موبايلات حقيقية.</p>')};
+}
 try{render()}catch(e){}
