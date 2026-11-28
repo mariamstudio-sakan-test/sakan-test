@@ -249,4 +249,38 @@ const PODS=[["الأنوثة والعلاقة بنفسك", [["Female Formula | �
 P.pod='M4 14v-2a8 8 0 0116 0v2M4 14h3v6H5a1 1 0 01-1-1zM20 14h-3v6h2a1 1 0 001-1z';
 if(!((CFG&&CFG.hidden)||[]).includes('pod')&&!SECS.some(x=>x[0]==='pod')){const k=SECS.findIndex(x=>x[0]==='play');SECS.splice(k<0?SECS.length:k+1,0,['pod',(CFG&&CFG.labels&&CFG.labels.pod)||'اسمعوا مع سكن','pod','c3'])}
 H.pod=()=>{shell('اسمعوا مع سكن','ترشيحات حلقات تسمعيها');return PODS.map(gp=>`<div class="card"><h3>${I('pod')} ${e(gp[0])}</h3>`+gp[1].map(it=>`<div class="row" style="display:block"><b>${e(it[0])}</b><br>${e(it[1])}${it[2]?`<br><small>${e(it[2])}</small>`:''}<a class="btn" href="${e(it[3])}" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;text-decoration:none;margin-top:8px">افتحي الحلقة</a></div>`).join('')+`</div>`).join('')+`<div class="card"><p class="note">دي ترشيحات للمعاينة، ما اتسمعتش كاملة، وبتفتح موقع خارجي. سكن مش صاحب المحتوى ومش بيخزّن صوت.</p></div>`};
+/* day/night mode: key 'mode' (نهاري default / ليلي / تلقائي = follow phone). Works with pink and green. */
+const dkEl=document.createElement('style');dkEl.textContent=`
+body.dk.dk{color-scheme:dark;--pk:#5a2a40;--pk2:#2e2432;--gr:#cdeacc;--gr2:#22302a;--yl:#332e22;--tx:#f3e9ee;--mut:#c9b6c0;background:#16111a;background-image:none}
+body.dk.dk.gt{--pk:#3b4519;--pk2:#232a18;--gr:#e6ebd2;--gr2:#232a18;--yl:#2c2c1c;--tx:#eef0e0;--mut:#bcc49a;background:#12150b;background-image:none}
+body.dk.dk .card,body.dk.dk .bk,body.dk.dk .ov .box{background:#241c28;border:1px solid var(--pk);box-shadow:0 5px 0 #0008}
+body.dk.dk.gt .card,body.dk.dk.gt .bk,body.dk.dk.gt .ov .box{background:#1b2112;border:1px solid #4d5a22;box-shadow:0 5px 0 #0008}
+body.dk.dk .c1,body.dk.dk .c2,body.dk.dk .c3,body.dk.dk .c4,body.dk.dk .q,body.dk.dk .q.g2{background:var(--pk2)}
+body.dk.dk .sec{border:1px solid var(--pk);box-shadow:0 5px 0 #0008}
+body.dk.dk input,body.dk.dk textarea,body.dk.dk select,body.dk.dk .chip,body.dk.dk .pill,body.dk.dk .pick,body.dk.dk .bar{background:#1d1721;color:var(--tx);border-color:#5a4660}
+body.dk.dk.gt input,body.dk.dk.gt textarea,body.dk.dk.gt select,body.dk.dk.gt .chip,body.dk.dk.gt .pill,body.dk.dk.gt .pick,body.dk.dk.gt .bar{background:#141a0c;border-color:#4d5a22}
+body.dk.dk .chip.on,body.dk.dk .pill.on{color:#fff;background:#e8739f;border-color:#e8739f}body.dk.dk.gt .chip.on,body.dk.dk.gt .pill.on{background:#4d5a22;border:2px solid #e3c96a}
+body.dk.dk .th{background:#3a2233;box-shadow:0 4px 14px #0008}
+body.dk.dk.gt .th{background:#1f2610}
+body.dk.dk .th h1{color:#fff}body.dk.dk .th small{color:var(--mut)}
+body.dk.dk .tabs{background:#1d1721;border-top:1px solid #5a4660}
+body.dk.dk.gt .tabs{background:#1a2010;border-top:3px solid #c9a24a}
+body.dk.dk .tabs a.on{color:#fff}
+body.dk.dk:not(.gt) .btn.alt{background:#3f6b4b;color:#fff;box-shadow:0 4px 0 #254630}
+body.dk.dk .ph,body.dk.dk.gt .ph{background:#2d2a1b;border-color:#6b5a2a;color:var(--tx)}
+body.dk.dk .q small,body.dk.dk .note,body.dk.dk.gt #m>.note{color:var(--mut)}
+body.dk.dk.gt #m>.note{background:#1b2112}
+body.dk.dk .brand{color:#e8d9e0}
+body.dk.dk .row,body.dk.dk.gt .row{border-bottom-color:#3a2f40}
+body.dk.dk .cell{color:var(--tx)}
+body.dk.dk b,body.dk.dk p,body.dk.dk label,body.dk.dk h3{color:var(--tx)}
+body.dk.dk h3{color:var(--gr)}
+body.dk.dk .wr .wi b,body.dk.dk .wr .wi .ic{color:#2e5a3a}body.dk.dk.gt .wr .wi b,body.dk.dk.gt .wr .wi .ic{color:#2b3314}body.dk.dk .hr .wi b{color:#8a2b4d}
+body.dk.dk .bk b{color:var(--tx)}body.dk.dk .bk small{color:var(--mut)}
+`;document.head.appendChild(dkEl);
+const dkOn=()=>{const m=g('mode','نهاري');return m==='ليلي'||(m==='تلقائي'&&matchMedia('(prefers-color-scheme: dark)').matches)};
+const _rdR=render;render=function(){const r=_rdR.apply(this,arguments);const on=dkOn();document.body.classList.toggle('dk',on);if(on){const mt=document.querySelector('meta[name=theme-color]');if(mt)mt.content=(g('theme')||'أخضر')==='أخضر'?'#1f2610':'#3a2233'}return r};
+try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(g('mode','نهاري')==='تلقائي')render()})}catch(e){}
+window.setMode=m=>{st('mode',m);render()};
+const _meM=H.me;H.me=()=>{const h=_meM();const card=`<div class="card"><h3>الوضع</h3><div class="chips">${['نهاري','ليلي','تلقائي'].map(m=>`<button class="chip ${g('mode','نهاري')===m?'on':''}" onclick="setMode('${m}')">${m}</button>`).join('')}</div><p class="note">«تلقائي» يتبع وضع موبايلك. بيتحفظ على جهازك بس.</p></div>`;const k='<div class="card"><h3>تنبيهات الموبايل';return h.includes(k)?h.replace(k,card+k):h+card};
 try{render()}catch(e){}
