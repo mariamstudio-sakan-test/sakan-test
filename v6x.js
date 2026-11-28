@@ -68,16 +68,37 @@ const PLN=[['ياسمين','#fff','#e8c34a',8],['ريحان','#cfe8c8','#6b8f3a'
 const PLT=[0,1,5,10,18,30];
 const plStage=n=>{let s=0;PLT.forEach((t,i)=>{if(n>=t&&n>0)s=i});return s};
 const plTotal=ym=>{const a=g('ach',{});let n=0;for(const d in a)if(d.indexOf(ym)===0)n+=(+a[d].tasks||0);return n};
-const plPlant=(mi,stg,sz)=>{const P=PLN[mi%12],c=P[1],ctr=P[2],k=P[3],h=[0,12,28,42,54,60][stg];let o=`<svg viewBox="0 0 100 100" width="${sz}" height="${sz}" role="img" aria-label="${P[0]}"><path d="M30 80h40l-5 16H35z" fill="#c07a4f"/><rect x="27" y="76" width="46" height="7" rx="3" fill="#d58f5f"/>`;
+const plLeaf=(x,y,r,t,z,c)=>{const g=`transform="translate(${x} ${y}) rotate(${r}) scale(${z})"`;
+ if(t==='lance')return `<path ${g} d="M0 0 C6 -3 16 -3 24 0 C16 3 6 3 0 0Z" fill="${c}" stroke="#0002" stroke-width=".5"/>`;
+ if(t==='heart')return `<path ${g} d="M0 0 C2 -8 12 -9 13 -2 C14 5 6 8 0 0Z" fill="${c}" stroke="#0002" stroke-width=".5"/>`;
+ if(t==='round')return `<ellipse ${g} cx="8" cy="0" rx="8" ry="6" fill="${c}" stroke="#0002" stroke-width=".5"/><path ${g} d="M0 0H15" stroke="#0003" stroke-width=".6"/>`;
+ if(t==='strap')return `<path ${g} d="M0 0 C8 -3 22 -4 30 -1 C22 3 8 3 0 0Z" fill="${c}"/>`;
+ if(t==='serr')return `<path ${g} d="M0 0 L4 -4 L7 -2 L11 -5 L14 -2 L19 -3 L18 1 L12 3 L6 3Z" fill="${c}" stroke="#0002" stroke-width=".4"/>`;
+ return `<ellipse ${g} cx="7" cy="0" rx="8" ry="3.6" fill="${c}" stroke="#0002" stroke-width=".4"/>`};
+const PS=[
+ {n:'jasmine',lf:'lance',lc:'#5f9f62',hs:1,f:(y)=>{let o='';for(let k=0;k<5;k++)o+=`<ellipse cx="50" cy="${y-6}" rx="2.6" ry="7" fill="#fff" stroke="#0002" stroke-width=".6" transform="rotate(${k*72} 50 ${y})"/>`;o+=`<circle cx="50" cy="${y}" r="2.4" fill="#e8c34a"/>`;for(let k=0;k<5;k++)o+=`<ellipse cx="68" cy="${y+16}" rx="1.6" ry="4.5" fill="#fff" stroke="#0002" stroke-width=".4" transform="rotate(${k*72} 68 ${y+16})"/>`;return o},b:'#fff'},
+ {n:'basil',lf:'round',lc:'#3f8a4a',hs:.85,f:(y)=>{let o='';for(let k=0;k<4;k++)o+=`<circle cx="${47+(k%2)*6}" cy="${y-k*4}" r="3" fill="#fff" stroke="#0002" stroke-width=".5"/><circle cx="${47+(k%2)*6}" cy="${y-k*4}" r="1" fill="#cfe8c8"/>`;return o},b:'#fff'},
+ {n:'tulip',lf:'strap',lc:'#4f9a5a',hs:1,f:(y)=>`<path d="M40 ${y-12} C40 ${y+8} 60 ${y+8} 60 ${y-12} C56 ${y-8} 53 ${y-12} 50 ${y-18} C47 ${y-12} 44 ${y-8} 40 ${y-12}Z" fill="#f27ca5" stroke="#0003" stroke-width=".7"/><path d="M50 ${y-18} C45 ${y-6} 46 ${y+4} 50 ${y+6} C54 ${y+4} 55 ${y-6} 50 ${y-18}Z" fill="#f7a3c0"/>`,b:'#f27ca5'},
+ {n:'rose',lf:'serr',lc:'#4a8a52',hs:1,f:(y)=>`<circle cx="50" cy="${y-2}" r="11" fill="#e0405f" stroke="#0003" stroke-width=".7"/><path d="M42 ${y-4} C45 ${y-12} 56 ${y-12} 58 ${y-3} C56 ${y+5} 45 ${y+6} 43 ${y} " fill="none" stroke="#a82840" stroke-width="1.4"/><path d="M46 ${y-3} C48 ${y-8} 54 ${y-7} 54 ${y-3} C53 ${y+1} 48 ${y+1} 47 ${y-2}" fill="none" stroke="#a82840" stroke-width="1.2"/><circle cx="50" cy="${y-3}" r="1.6" fill="#a82840"/>`,b:'#e0405f'},
+ {n:'lavender',lf:'lance',lc:'#7fae7a',hs:1,f:(y)=>{let o='';for(const dx of[-8,0,8]){o+=`<path d="M50 ${y+12} L${50+dx} ${y-6}" stroke="#5c9b66" stroke-width="1.4"/>`;for(let k=0;k<7;k++)o+=`<ellipse cx="${50+dx+(k%2?1.6:-1.6)}" cy="${y-6-k*2.6+ (dx===0?0:4)}" rx="2" ry="1.6" fill="#9b7fd1" stroke="#0002" stroke-width=".3"/>`}return o},b:'#9b7fd1'},
+ {n:'sunflower',lf:'heart',lc:'#4a9a4f',hs:1.12,f:(y)=>{let o='';for(let k=0;k<14;k++)o+=`<ellipse cx="50" cy="${y-11}" rx="3" ry="7" fill="#f2c230" stroke="#0002" stroke-width=".5" transform="rotate(${k*360/14} 50 ${y})"/>`;o+=`<circle cx="50" cy="${y}" r="7.5" fill="#6b4a1b"/>`;for(let k=0;k<8;k++)o+=`<circle cx="${50+Math.cos(k)*3.8}" cy="${y+Math.sin(k)*3.8}" r=".8" fill="#a67c3a"/>`;return o},b:'#f2c230'},
+ {n:'lily',lf:'strap',lc:'#4a9a55',hs:1.05,f:(y)=>{let o='';for(let k=0;k<6;k++)o+=`<path d="M50 ${y} C46 ${y-6} 47 ${y-14} 50 ${y-19} C53 ${y-14} 54 ${y-6} 50 ${y}Z" fill="#f59a4b" stroke="#0003" stroke-width=".5" transform="rotate(${k*60} 50 ${y})"/>`;for(let k=0;k<6;k++)o+=`<path d="M50 ${y} L${50+Math.sin(k*1.05)*7} ${y-Math.cos(k*1.05)*7}" stroke="#7a3a10" stroke-width=".8"/><circle cx="${50+Math.sin(k*1.05)*8}" cy="${y-Math.cos(k*1.05)*8}" r="1.3" fill="#7a3a10"/>`;return o},b:'#f59a4b'},
+ {n:'daisy',lf:'serr',lc:'#5aa060',hs:.95,f:(y)=>{let o='';for(let k=0;k<16;k++)o+=`<ellipse cx="50" cy="${y-9}" rx="1.9" ry="7" fill="#fff" stroke="#0002" stroke-width=".5" transform="rotate(${k*22.5} 50 ${y})"/>`;o+=`<circle cx="50" cy="${y}" r="4.6" fill="#f2c230"/>`;return o},b:'#fff'},
+ {n:'violet',lf:'heart',lc:'#3f8a50',hs:.7,f:(y)=>{let o='';for(const [dx,dy,r] of [[-5,-6,-25],[5,-6,25],[-8,1,-80],[8,1,80],[0,6,180]])o+=`<ellipse cx="${50+dx}" cy="${y+dy}" rx="5" ry="6" fill="#7b5cc4" stroke="#0003" stroke-width=".5" transform="rotate(${r} ${50+dx} ${y+dy})"/>`;o+=`<circle cx="50" cy="${y}" r="2.4" fill="#f2c230"/>`;return o},b:'#7b5cc4'},
+ {n:'narcissus',lf:'strap',lc:'#5aa060',hs:1,f:(y)=>{let o='';for(let k=0;k<6;k++)o+=`<ellipse cx="50" cy="${y-8}" rx="4" ry="8" fill="#fff5d0" stroke="#0002" stroke-width=".5" transform="rotate(${k*60} 50 ${y})"/>`;o+=`<ellipse cx="50" cy="${y}" rx="5" ry="4.2" fill="#f2a23b" stroke="#b36b12" stroke-width=".8"/><ellipse cx="50" cy="${y}" rx="2.6" ry="2" fill="#d9822a"/>`;return o},b:'#fff5d0'},
+ {n:'fol',lf:'oval',lc:'#4f9a5a',hs:1,f:(y)=>{let o='';for(let k=0;k<8;k++)o+=`<ellipse cx="50" cy="${y-8}" rx="4.4" ry="8.5" fill="#fffaf0" stroke="#0002" stroke-width=".5" transform="rotate(${k*45} 50 ${y})"/>`;for(let k=0;k<6;k++)o+=`<ellipse cx="50" cy="${y-5}" rx="3.2" ry="5.5" fill="#fff" stroke="#0002" stroke-width=".4" transform="rotate(${k*60+20} 50 ${y})"/>`;o+=`<circle cx="50" cy="${y}" r="2.6" fill="#e8c34a"/>`;return o},b:'#fffaf0'},
+ {n:'carnation',lf:'lance',lc:'#6aa66a',hs:1,f:(y)=>{let o='';for(let k=0;k<12;k++)o+=`<circle cx="${50+Math.cos(k*.5236)*8.5}" cy="${y+Math.sin(k*.5236)*8.5}" r="4.4" fill="#f27ca5" stroke="#0002" stroke-width=".5"/>`;for(let k=0;k<8;k++)o+=`<circle cx="${50+Math.cos(k*.785)*4.6}" cy="${y+Math.sin(k*.785)*4.6}" r="3.6" fill="#f59ab9" stroke="#0002" stroke-width=".4"/>`;o+=`<circle cx="50" cy="${y}" r="3" fill="#e0587f"/>`;return o},b:'#f27ca5'}];
+const plPlant=(mi,stg,sz)=>{const P=PS[mi%12],PNm=PLN[mi%12],hh=[0,12,28,42,54,60][stg]*Math.min(1.1,P.hs),y=76-hh;
+ let o=`<svg viewBox="0 0 100 100" width="${sz}" height="${sz}" role="img" aria-label="${PNm[0]}"><path d="M30 80h40l-5 16H35z" fill="#c07a4f"/><rect x="27" y="76" width="46" height="7" rx="3" fill="#d58f5f"/>`;
  if(stg===0)return o+`<ellipse cx="50" cy="74" rx="4" ry="3" fill="#7a5a2f"/></svg>`;
- o+=`<path d="M50 76 C50 ${76-h/2} 50 ${76-h} 50 ${76-h}" stroke="#5c9b66" stroke-width="3" fill="none" stroke-linecap="round"/>`;
- if(stg>=1)o+=`<ellipse cx="42" cy="${72-h/3}" rx="7" ry="3.5" fill="#6aae72" transform="rotate(-25 42 ${72-h/3})"/>`;
- if(stg>=2)o+=`<ellipse cx="58" cy="${68-h/2.4}" rx="8" ry="4" fill="#5c9b66" transform="rotate(25 58 ${68-h/2.4})"/>`;
- if(stg>=3)o+=`<ellipse cx="41" cy="${62-h/2}" rx="9" ry="4" fill="#6aae72" transform="rotate(-30 41 ${62-h/2})"/>`;
- const y=76-h;
- if(stg===3)o+=`<ellipse cx="50" cy="${y}" rx="4" ry="6" fill="${c==='#fff'?'#e9e2d0':c}" stroke="#5c9b66" stroke-width=".8"/>`;
- if(stg===4){o+=`<ellipse cx="58" cy="${y+14}" rx="9" ry="4" fill="#5c9b66" transform="rotate(30 58 ${y+14})"/><ellipse cx="42" cy="${y+22}" rx="9" ry="4" fill="#6aae72" transform="rotate(-30 42 ${y+22})"/>`;for(const a of[-28,28])o+=`<ellipse cx="50" cy="${y-6}" rx="6" ry="11" fill="${c}" stroke="#0002" stroke-width=".8" transform="rotate(${a} 50 ${y+3})"/>`;o+=`<ellipse cx="50" cy="${y-5}" rx="7" ry="12" fill="${c}" stroke="#0002" stroke-width=".8"/><path d="M43 ${y+3} q7 6 14 0" stroke="#5c9b66" stroke-width="2" fill="none"/>`}
- if(stg===5){for(let i=0;i<k;i++)o+=`<ellipse cx="50" cy="${y-9}" rx="4.4" ry="9" fill="${c}" stroke="#0002" stroke-width=".7" transform="rotate(${i*360/k} 50 ${y})"/>`;o+=`<circle cx="50" cy="${y}" r="6" fill="${ctr}"/>`}
+ o+=`<path d="M50 76 C50 ${76-hh/2} 50 ${y} 50 ${y}" stroke="#5c9b66" stroke-width="${P.n==='sunflower'?4:3}" fill="none" stroke-linecap="round"/>`;
+ const lz=P.n==='basil'?1.1:.7;
+ if(stg>=1)o+=plLeaf(50,72-hh/3,-150,P.lf,lz*.8,P.lc);
+ if(stg>=2)o+=plLeaf(50,68-hh/2.2,-30,P.lf,lz,P.lc);
+ if(stg>=3){o+=plLeaf(50,64-hh/1.8,-155,P.lf,lz*1.1,P.lc);if(P.n==='basil'||P.n==='violet')o+=plLeaf(50,70-hh/3,-35,P.lf,lz,P.lc)}
+ if(stg===3)o+=`<ellipse cx="50" cy="${y}" rx="3.5" ry="5.5" fill="${P.b==='#fff'?'#e9e2d0':P.b}" stroke="#5c9b66" stroke-width=".8"/>`;
+ if(stg===4){o+=plLeaf(50,y+16,25,P.lf,lz,P.lc)+plLeaf(50,y+22,155,P.lf,lz,P.lc);o+=`<ellipse cx="50" cy="${y-4}" rx="6.5" ry="10" fill="${P.b==='#fff'?'#efe9d8':P.b}" stroke="#0002" stroke-width=".8"/><path d="M44 ${y+2} q6 6 12 0" stroke="#5c9b66" stroke-width="2" fill="none"/>`}
+ if(stg===5){o+=plLeaf(50,y+16,25,P.lf,lz,P.lc)+plLeaf(50,y+24,155,P.lf,lz,P.lc);o+=P.f(Math.max(y,22))}
  return o+'</svg>'};
 const plRec=()=>{const ym=today().slice(0,7),mx=g('plmax',{}),n=plTotal(ym);if(n>(mx[ym]||0)){mx[ym]=n;D.plmax=mx;sv()}return mx};
 const plCard=()=>{const ym=today().slice(0,7),mi=+ym.slice(5)-1,mx=plRec(),n=mx[ym]||0,stg=plStage(n),P=PLN[mi%12],seen=g('plseen',{}),grew=(seen[ym]||0)<n;
@@ -91,7 +112,7 @@ H.secs=()=>{const h=oHome2(),a=h.indexOf('<div class="g">'),b=h.indexOf('<div cl
 
 
 /* رياضتي: videos (reviewed list, rotates daily), exercise-day flowers, water tracker */
-const VEX=[['https://www.youtube.com/watch?v=O5YX5xg8Seg','British Heart Foundation (صفحة BHF الرسمية)','10-minute living room workout','حوالي ١٠ دقايق']];
+const VEX=[['https://www.youtube.com/watch?v=O5YX5xg8Seg','صفحة BHF الرسمية (British Heart Foundation)','10-minute living room workout','حوالي ١٠ دقايق']];
 const VST=[['https://www.nhs.uk/live-well/exercise/strength-and-resistance/body-blast-cool-down/','NHS (الخدمة الصحية البريطانية)','General cool down (10 minutes)','١٠ دقايق']];
 const dayNum=()=>{const t=new Date();return Math.floor(Date.UTC(t.getFullYear(),t.getMonth(),t.getDate())/864e5)};
 const vidCard=(lab,L)=>{const v=L[0];return `<div class="row" style="display:block"><b>${lab}</b><div dir="ltr" style="text-align:left">${e(v[2])}<br><small style="color:var(--mut)">${e(v[1])}</small></div><a class="btn" href="${v[0]}" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;text-decoration:none">افتحي الفيديو</a></div>`};
