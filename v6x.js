@@ -229,4 +229,13 @@ const cs=o.add.map((a,i)=>`<div class="row"><label for="nc${a.id}">${e(a.t)}</la
 shell('علاقتي بربنا','كل عبادة ليها علامة صح');
 return `<div class="card"><h3>الصلاة في وقتها</h3>${MAT}${checklist('pr',PR)}</div><div class="card"><h3>نوافل وأوراد</h3>${bs}${cs}${o.hide.length?`<button class="pill" onclick="gcShow()">رجّعي المخفي (${o.hide.length})</button>`:''}</div><div class="card"><h3>أضيفي عبادة خاصة بيكي</h3><div class="row"><input id="gcn" maxlength="80" placeholder="اسم العبادة" style="flex:1"><button class="btn" onclick="gcAdd()">إضافة</button></div><p class="note">التعديل ده ليكي إنتي بس وعلى جهازك، ومش بيغيّر حاجة عند حد تاني.</p></div><p class="note">العلامات بتتحفظ على جهازك للتجربة.</p>`};
 
+
+/* Mushaf: remember last surah and reading place (device only). Quran text is not touched. */
+(()=>{const K='qres',cur=()=>{const r=g(K,null);return r&&r.n>=1&&r.n<=114?r:null};
+const oq=window.qsura;
+const restore=(n,f)=>{let t=0;const iv=setInterval(()=>{t++;const qb=document.getElementById('qb');if(route()!=='q'+n||t>40){clearInterval(iv);return}if(qb&&!/بيتحمّل/.test(qb.innerText)){clearInterval(iv);const mx=document.documentElement.scrollHeight-window.innerHeight;if(f>0&&mx>0)window.scrollTo(0,Math.round(f*mx))}},150)};
+window.qsura=n=>{const h=oq(n);const c=cur();const f=c&&c.n===n?(c.f||0):0;if(!c||c.n!==n)st(K,{n:n,f:0});if(f>0)restore(n,f);return h};
+let tm=0;window.addEventListener('scroll',()=>{const m=/^q(\d+)$/.exec(route());if(!m)return;clearTimeout(tm);tm=setTimeout(()=>{const qb=document.getElementById('qb');if(!qb||/بيتحمّل/.test(qb.innerText))return;const mx=document.documentElement.scrollHeight-window.innerHeight;if(mx<=0)return;const f=Math.min(1,Math.max(0,window.scrollY/mx));st(K,{n:+m[1],f:Math.round(f*1000)/1000})},350)},{passive:true});
+const ohq=H.quran;H.quran=()=>{const o=ohq(),c=cur();if(!c)return o;setTimeout(()=>{loadQ().then(j=>{const el=document.getElementById('qrs'),s=j&&j.suras[c.n-1];if(el&&s)el.textContent='كمّلي من سورة '+s.name}).catch(()=>{})},0);return `<div class="card"><h3>${I('quran')} كمّلي من آخر مكان</h3><a class="btn" id="qrs" href="#q${c.n}" style="text-decoration:none;text-align:center;display:block">كمّلي القراءة</a><p class="note">المكان بيتحفظ على جهازك بس.</p></div>`+o};
+})();
 try{render()}catch(e){}
