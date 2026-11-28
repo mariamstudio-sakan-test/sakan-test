@@ -295,7 +295,9 @@ const GX=(()=>{
  let busy=false;
  const run=root=>{if(busy||!root)return;busy=true;try{const m=isM();
   const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const ns=[];while(w.nextNode())ns.push(w.currentNode);
-  ns.forEach(n=>{if(!n.parentElement||skip(n.parentElement))return;const o=n.nodeValue,v=tx(o,m);if(v!==o)n.nodeValue=v});
+  const U=[];const lv=(x,d)=>{if(d>6)return;if(typeof x==='string'){if(x.length>=2&&x.length<6000&&x.slice(0,5)!=='data:')U.push(x.trim())}else if(x&&typeof x==='object'){for(const k in x)lv(x[k],d+1)}};try{lv(D,0)}catch(e){}
+ const own=t=>U.some(L=>L===t||(t.length>=8&&L.length>t.length&&L.indexOf(t)>=0));
+ ns.forEach(n=>{if(!n.parentElement||skip(n.parentElement))return;const o=n.nodeValue,t=o.trim();if(!t||own(t))return;const v=tx(o,m);if(v!==o)n.nodeValue=v});
   (root.querySelectorAll?root.querySelectorAll('[placeholder]'):[]).forEach(el=>{const o=el.getAttribute('placeholder');if(o){const v=tx(o,m);if(v!==o)el.setAttribute('placeholder',v)}});
  }finally{busy=false}};
  return {txt:s=>tx(String(s),isM()),run};
