@@ -46,7 +46,19 @@ const bqPill=on=>`<button class="pill ${on?'on':''}" onclick="window._at='bq';re
 .hbox{display:flex;flex-wrap:wrap;justify-content:center;gap:4px}
 .sec.hr{position:relative;width:46%!important;aspect-ratio:1/1;background:transparent;border:0;box-shadow:none;padding:0;margin:0!important;display:flex;align-items:center;justify-content:center}
 .hr .wi{width:62%;margin-top:-8%}.hr .wi .ic{width:34px;height:34px;margin:0;color:#c2185b}.hr .wi b{font-size:13px;line-height:1.25;color:#8a2b4d}`;document.head.appendChild(st)})();
-const WZ=(()=>{let l='';for(let a=15;a<360;a+=30)l+=`<ellipse cx="50" cy="9" rx="4.2" ry="8" transform="rotate(${a} 50 50)" fill="var(--gr)" fill-opacity=".55"/>`;for(let a=0;a<360;a+=90)l+=`<circle cx="50" cy="6" r="3.6" transform="rotate(${a} 50 50)" fill="var(--pk)"/>`;return `<svg class="wz" viewBox="0 0 100 100" aria-hidden="true">${l}<circle cx="50" cy="50" r="38" fill="#fff" stroke="var(--gr)" stroke-width="1.6"/></svg>`})();
+const WZ=(()=>{const P=(r,c1,c2)=>`<path d="M0 0C-${r*.62} -${r*.35} -${r*.5} -${r*1.05} 0 -${r}C${r*.5} -${r*1.05} ${r*.62} -${r*.35} 0 0Z" fill="${c1}"/><path d="M0 -${r*.12}C-${r*.3} -${r*.3} -${r*.26} -${r*.7} 0 -${r*.82}C${r*.26} -${r*.7} ${r*.3} -${r*.3} 0 -${r*.12}Z" fill="${c2}"/>`;
+const FL=(x,y,s,rot,c1,c2)=>{let p='';for(let i=0;i<5;i++)p+=`<g transform="rotate(${i*72})">${P(5,c1,c2)}</g>`;return `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${s})">${p}<circle r="1.5" fill="#e9b949"/><circle cx=".6" cy="-.5" r=".35" fill="#b9852a"/><circle cx="-.6" cy=".4" r=".35" fill="#b9852a"/></g>`};
+const LF=(x,y,s,rot,c)=>`<g transform="translate(${x} ${y}) rotate(${rot}) scale(${s})"><path d="M0 0C3.4 -3 3.6 -9 0 -14C-3.6 -9 -3.4 -3 0 0Z" fill="${c}"/><path d="M0 -1.5V-11.5" stroke="#fff" stroke-opacity=".45" stroke-width=".45" fill="none"/></g>`;
+const BD=(x,y,s,rot)=>`<g transform="translate(${x} ${y}) rotate(${rot}) scale(${s})"><ellipse cy="-2" rx="1.9" ry="2.6" fill="#f2a6c0"/><path d="M0 0C-2 -1 -2 -2.5 -.2 -3 -1 -1.5 0 -.5 0 0ZM0 0C2 -1 2 -2.5 .2 -3 1 -1.5 0 -.5 0 0Z" fill="#4f8a5b"/></g>`;
+const pt=(a,r)=>{const t=a*Math.PI/180;return [50+r*Math.sin(t),50-r*Math.cos(t)]};
+let l='';
+const G=['#4f8a5b','#6aa571','#3f7a4e'];
+for(let a=0;a<360;a+=20){const [x,y]=pt(a+10,42.5);l+=LF(x,y,.62+((a/20)%3)*.08,a+10+((a/20)%2?-62:62),G[(a/20)%3])}
+for(let a=0;a<360;a+=20){const [x,y]=pt(a+10,43.2);l+=LF(x,y,.5,a+10+((a/20)%2?58:-58),G[(a/20+1)%3])}
+const FC=[['#f7b6cc','#fde3ec'],['#ef8fb0','#f9c9da'],['#fff','#fbe7ee'],['#f7b6cc','#fde3ec'],['#e777a0','#f6bcd0'],['#fff','#fbe7ee']];
+for(let k=0;k<6;k++){const a=k*60+(k%2?4:-3);const [x,y]=pt(a,43.5);l+=FL(x,y,k%2?.95:1.12,a*1.7,FC[k][0],FC[k][1])}
+for(let k=0;k<6;k++){const a=k*60+30;const [x,y]=pt(a,43);l+=k%2?BD(x,y,1.1,a):FL(x,y,.55,a*2,'#fff','#fbe7ee')}
+return `<svg class="wz" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="38" fill="#fff" stroke="var(--gr)" stroke-width="1.6"/>${l}</svg>`})();
 const HZ='<svg class="wz" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 90C8 58 6 24 30 17 42 14 50 23 50 30 50 23 58 14 70 17 94 24 92 58 50 90Z" fill="#fff" stroke="#e0556f" stroke-width="2.4"/></svg>';
 const wrapS=(h,cls,bg)=>h.replace(/<button class="sec (c\d)" ([^>]*)>(<svg class="ic".*?<\/svg>)([^<]*)<\/button>/g,(m,c,a,ic,l)=>`<button class="sec ${cls} ${c}" ${a}>${bg}<span class="wi">${ic}<b>${l.trim()}</b></span></button>`);
 const oH=H.home;H.home=()=>wrapS(oH(),'wr',WZ);
