@@ -379,13 +379,28 @@ const _meG=H.me;H.me=()=>{let h=_meG();const cur=g('theme')||'أخضر';h=h.repl
    window._pTest=Date.now()+45000;say('بجهّز التجربة...');const r=await pushSync();
    if(String(r).indexOf('ok')===0)say('تمام. اقفلي التطبيق أو سيبيه، وخلال دقيقة تقريبًا هيجيلك تنبيه «عندك مهمة». لو ماجاش قوليلي.');else{window._pTest=0;say('ما قدرناش نجهّز التجربة دلوقتي. جرّبي بعدين.')}
    setTimeout(()=>{window._pTest=0},150000)}catch(er){window._pTest=0;say('ما قدرناش نجهّز التجربة دلوقتي.')}};
- const TS=[['أهلًا بيكي في سكن','كل اللي بتكتبيه (يوميات، صحة، كتب، مهام) بيتحفظ على موبايلك بس، مش بيتبعت لأي سيرفر.'],['الأقسام','من «دخول أقسام سكن» في الرئيسية هتلاقي علاقتي بربنا، يومياتي، صحتي، كتبي والتقويم وغيرهم.'],['حسابي','من «حسابي» تختاري الشكل والوضع الليلي، وتحفظي نسخة احتياطية من بياناتك في ملف عندك.']];
- let tI=0;const tClose=()=>{const o=document.getElementById('tourov');if(o)o.remove();st('tour','1')};
- const tShow=()=>{let o=document.getElementById('tourov');if(!o){o=document.createElement('div');o.id='tourov';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');o.style.cssText='position:fixed;inset:0;z-index:9998;background:#000a;display:flex;align-items:center;justify-content:center;padding:18px';document.body.appendChild(o)}
-  const s=TS[tI];o.innerHTML='<div class="card" style="max-width:420px;width:100%;margin:0"><p class="note" style="margin:0 0 6px">'+(tI+1)+' من '+TS.length+'</p><h3>'+s[0]+'</h3><p>'+s[1]+'</p><button class="btn" id="tournx">'+(tI<TS.length-1?'التالي':'يلا نبدأ')+'</button><button class="btn" id="tourskip" style="margin-top:8px;background:transparent;color:inherit;border:2px solid currentColor;box-shadow:none">'+(tI<TS.length-1?'تخطي':'إغلاق')+'</button></div>';
-  document.getElementById('tournx').onclick=()=>{if(tI<TS.length-1){tI++;tShow()}else tClose()};document.getElementById('tourskip').onclick=tClose};
- window.tourOpen=()=>{tI=0;tShow()};
- const _meT=H.me;H.me=()=>{const h=_meT();const c='<div class="card"><h3>جولة سريعة</h3><p class="note">٣ خطوات بتعرّفك على سكن.</p><button class="btn" onclick="tourOpen()">ابدئي الجولة</button></div><div class="card"><h3>تجربة التنبيه</h3><p class="note">بعد ما تفعّلي التنبيهات، اضغطي هنا وهيجيلك تنبيه «عندك مهمة» خلال دقيقة. بيتأكد إن التنبيه بيوصل لجهازك فعلًا.</p><button class="btn" onclick="pushTest()">جرّبي التنبيه</button><p class="note" id="ptmsg" role="status"></p></div>';const k='<div class="card"><h3>الوضع</h3>';return h.includes(k)?h.replace(k,c+k):h+c};
+ const hc=(t)=>[...document.querySelectorAll('#m .card')].find(c=>{const h=c.querySelector('h3');return h&&h.textContent.trim()===t});
+ const TS=[
+  {h:'أهلًا بيكي في سكن',p:'كل اللي بتكتبيه (يوميات، صحة، كتب، مهام) بيتحفظ على موبايلك بس، مش بيتبعت لأي سيرفر.',hash:'#home',t:()=>document.getElementById('grt')},
+  {h:'الأقسام',p:'من هنا بتدخلي علاقتي بربنا، يومياتي، صحتي، كتبي والتقويم وغيرهم.',hash:'#home',t:()=>[...document.querySelectorAll('#m button.btn')].find(b=>b.textContent.indexOf('دخول أقسام سكن')>=0)},
+  {h:'حسابي',p:'من تبويب «حسابي» بتظبطي الشكل والوضع وبتحفظي نسخة من بياناتك.',hash:'#home',t:()=>document.querySelector('#tb a[href="#me"]')},
+  {h:'اللون والوضع',p:'اختاري اللون اللي يريحك: أخضر أو بينك أو أزرق، وكمان الوضع الليلي.',hash:'#me',t:()=>hc('الشكل')},
+  {h:'نسخة احتياطية',p:'احفظي نسخة من بياناتك في ملف عندك، وارجعي ليها وقت ما تحتاجي.',hash:'#me',t:()=>hc('نسخة احتياطية')}];
+ let tI=0,zEl=null;
+ const zOff=()=>{if(zEl){zEl.style.transform=zEl.dataset.ot||'';zEl.style.transition='';zEl.removeAttribute('data-ot');zEl=null}};
+ const tClose=()=>{zOff();const o=document.getElementById('tourov');if(o)o.remove();window.removeEventListener('resize',tPos);st('tour','1')};
+ function tPos(){const o=document.getElementById('tourov');if(!o)return;const s=TS[tI];zOff();const el=s.t();const sp=o.querySelector('.tsp'),cd=o.querySelector('.tcd');
+  if(!el){sp.style.display='none';cd.style.top='50%';cd.style.bottom='auto';cd.style.transform='translateY(-50%)';return}
+  el.scrollIntoView({block:'center'});zEl=el;el.dataset.ot=el.style.transform||'';el.style.transition='transform .35s';el.style.transform='scale(1.06)';
+  const r=el.getBoundingClientRect(),pd=8;sp.style.display='block';sp.style.top=(r.top-pd)+'px';sp.style.left=(r.left-pd)+'px';sp.style.width=(r.width+pd*2)+'px';sp.style.height=(r.height+pd*2)+'px';
+  const low=(r.top+r.height/2)>innerHeight/2;cd.style.transform='';if(low){cd.style.top='14px';cd.style.bottom='auto'}else{cd.style.bottom='14px';cd.style.top='auto'}}
+ const tShow=()=>{let o=document.getElementById('tourov');if(!o){o=document.createElement('div');o.id='tourov';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');o.style.cssText='position:fixed;inset:0;z-index:9998;touch-action:none';
+   o.innerHTML='<div class="tsp" style="position:fixed;border:3px solid #fff;border-radius:22px;box-shadow:0 0 0 3px #e0457b,0 0 0 200vmax rgba(20,10,16,.66);pointer-events:none;transition:all .3s"></div><div class="tcd card" style="position:fixed;left:50%;margin:0;width:min(92vw,420px);box-sizing:border-box;translate:-50% 0"></div>';document.body.appendChild(o);window.addEventListener('resize',tPos)}
+  const s=TS[tI],cd=o.querySelector('.tcd');cd.innerHTML='<p class="note" style="margin:0 0 6px">'+(tI+1)+' من '+TS.length+'</p><h3>'+s.h+'</h3><p>'+s.p+'</p><button class="btn" id="tournx">'+(tI<TS.length-1?'التالي':'يلا نبدأ')+'</button><button class="btn" id="tourskip" style="margin-top:8px;background:transparent;color:inherit;border:2px solid currentColor;box-shadow:none">'+(tI<TS.length-1?'تخطي':'إغلاق')+'</button>';
+  document.getElementById('tournx').onclick=()=>{if(tI<TS.length-1){tI++;go2()}else{tClose();location.hash='#home'}};document.getElementById('tourskip').onclick=tClose;tPos()};
+ const go2=()=>{const s=TS[tI];if((location.hash||'#home')!==s.hash){zOff();location.hash=s.hash;setTimeout(tShow,500)}else tShow()};
+ window.tourOpen=()=>{tI=0;go2()};
+ const _meT=H.me;H.me=()=>{const h=_meT();const c='<div class="card"><h3>جولة سريعة</h3><p class="note">٥ خطوات بتنوّرلك كل جزء على الشاشة.</p><button class="btn" onclick="tourOpen()">ابدئي الجولة</button></div><div class="card"><h3>تجربة التنبيه</h3><p class="note">بعد ما تفعّلي التنبيهات، اضغطي هنا وهيجيلك تنبيه «عندك مهمة» خلال دقيقة. بيتأكد إن التنبيه بيوصل لجهازك فعلًا.</p><button class="btn" onclick="pushTest()">جرّبي التنبيه</button><p class="note" id="ptmsg" role="status"></p></div>';const k='<div class="card"><h3>الوضع</h3>';return h.includes(k)?h.replace(k,c+k):h+c};
  if(NEWU){setTimeout(()=>{if(D.tour===undefined&&!window.PLOCK)tourOpen()},600)}
 }
 try{render()}catch(e){}
