@@ -367,7 +367,7 @@ const _meG=H.me;H.me=()=>{let h=_meG();const cur=g('theme')||'أخضر';h=h.repl
    try{localStorage.setItem(PK,txt)}catch(er){try{if(prev!==null)localStorage.setItem(PK,prev)}catch(e2){}bkStat('معرفتش أكتب البيانات. رجّعت اللي كان موجود.');return}
    D=nd;render();setTimeout(()=>bkStat('اتسترجعت النسخة. لو مش دي اللي عايزاها اضغطي «رجوع لما قبل الاسترجاع».'),50)};r.readAsText(f)};
  window.bkUndo=()=>{const pn=PK+':prerestore',p=localStorage.getItem(pn);if(p===null){bkStat('مفيش نسخة قبل الاسترجاع.');return}try{const d=JSON.parse(p);if(!d||typeof d!=='object'||Array.isArray(d))throw 0;localStorage.setItem(PK,p);localStorage.removeItem(pn);D=d;render();setTimeout(()=>bkStat('رجعت لما قبل الاسترجاع.'),50)}catch(er){bkStat('معرفتش أرجّع.')}};
- const _meB=H.me;H.me=()=>{const h=_meB();const c=`<div class="card"><h3>نسخة احتياطية</h3><p class="note">بتحفظي ملف على موبايلك فيه يومياتك وكتبك ومهامك وبيانات صحتك ودورتك. الملف مش بيروح لأي سيرفر، وإنتِ المسؤولة عن مكانه. الاسترجاع بيستبدل اللي على الجهاز، مش بيدمجه.</p><button class="btn" onclick="bkSave()">حفظ نسخة احتياطية</button><label class="btn" style="display:block;text-align:center;margin-top:8px">استرجاع من ملف<input type="file" accept=".json,application/json" style="display:none" onchange="bkLoad(this)"></label><button class="btn" style="margin-top:8px;display:${localStorage.getItem(PK+':prerestore')!==null?'block':'none'}" onclick="bkUndo()">رجوع لما قبل الاسترجاع</button><p class="note" id="bkmsg" role="status"></p></div>`;const k='<div class="card"><h3>الوضع</h3>';return h.includes(k)?h.replace(k,c+k):h+c};
+ const _meB=H.me;H.me=()=>{const h=_meB();const c=`<div class="card"><h3>نسخة احتياطية</h3><p class="note">بيتحفظ ملف على موبايلك فيه يومياتك وكتبك ومهامك وبيانات صحتك ودورتك. الملف مش بيروح لأي سيرفر، ومكانه مسؤوليتك. الاسترجاع بيستبدل اللي على الجهاز، مش بيدمجه.</p><button class="btn" onclick="bkSave()">حفظ نسخة احتياطية</button><label class="btn" style="display:block;text-align:center;margin-top:8px">استرجاع من ملف<input type="file" accept=".json,application/json" style="display:none" onchange="bkLoad(this)"></label><button class="btn" style="margin-top:8px;display:${localStorage.getItem(PK+':prerestore')!==null?'block':'none'}" onclick="bkUndo()">رجوع لما قبل الاسترجاع</button><p class="note" id="bkmsg" role="status"></p></div>`;const k='<div class="card"><h3>الوضع</h3>';return h.includes(k)?h.replace(k,c+k):h+c};
  window.wnClose=()=>{st('wn',WN);const b=document.getElementById('wnc');if(b)b.remove()};
  const _rdW=render;render=function(){const r=_rdW.apply(this,arguments);try{const m=document.getElementById('m');if(m&&g('wn')!==undefined&&g('wn')!==WN&&!document.getElementById('wnc')&&!window.PLOCK){const d=document.createElement('div');d.className='card';d.id='wnc';d.innerHTML='<h3>الجديد في سكن</h3><p class="note">نسخة احتياطية واسترجاع من ملف (من «حسابي»)، ووضع تلقائي يتبع موبايلك، وبودكاست جديد. يوميّاتك زي ما هي.</p><button class="btn" onclick="wnClose()">تمام</button>';m.insertBefore(d,m.firstChild)}}catch(er){}return r};
 }
@@ -381,11 +381,11 @@ const _meG=H.me;H.me=()=>{let h=_meG();const cur=g('theme')||'أخضر';h=h.repl
    setTimeout(()=>{window._pTest=0},150000)}catch(er){window._pTest=0;say('ما قدرناش نجهّز التجربة دلوقتي.')}};
  const hc=(t)=>[...document.querySelectorAll('#m .card')].find(c=>{const h=c.querySelector('h3');return h&&h.textContent.trim()===t});
  const TS=[
-  {h:'أهلًا بيكي في سكن',p:'كل اللي بتكتبيه (يوميات، صحة، كتب، مهام) بيتحفظ على موبايلك بس، مش بيتبعت لأي سيرفر.',hash:'#home',t:()=>document.getElementById('grt')},
-  {h:'الأقسام',p:'من هنا بتدخلي علاقتي بربنا، يومياتي، صحتي، كتبي والتقويم وغيرهم.',hash:'#home',t:()=>[...document.querySelectorAll('#m button.btn')].find(b=>b.textContent.indexOf('دخول أقسام سكن')>=0)},
-  {h:'حسابي',p:'من تبويب «حسابي» بتظبطي الشكل والوضع وبتحفظي نسخة من بياناتك.',hash:'#home',t:()=>document.querySelector('#tb a[href="#me"]')},
-  {h:'اللون والوضع',p:'اختاري اللون اللي يريحك: أخضر أو بينك أو أزرق، وكمان الوضع الليلي.',hash:'#me',t:()=>hc('الشكل')},
-  {h:'نسخة احتياطية',p:'احفظي نسخة من بياناتك في ملف عندك، وارجعي ليها وقت ما تحتاجي.',hash:'#me',t:()=>hc('نسخة احتياطية')}];
+  {h:'أهلًا بيك في سكن',p:'كل اللي بتكتبه (يوميات، صحة، كتب، مهام) بيتحفظ على موبايلك بس، مش بيتبعت لأي سيرفر.',hash:'#home',t:()=>document.querySelector('.th')},
+  {h:'الأقسام',p:'من هنا بتدخل علاقتي بربنا، يومياتي، صحتي، كتبي والتقويم وغيرهم.',hash:'#home',t:()=>[...document.querySelectorAll('#m button.btn')].find(b=>b.textContent.indexOf('دخول أقسام سكن')>=0)},
+  {h:'حسابي',p:'من تبويب «حسابي» بتظبط الشكل والوضع وبتحفظ نسخة من بياناتك.',hash:'#home',t:()=>document.querySelector('#tb a[href="#me"]')},
+  {h:'اللون والوضع',p:'اختار اللون اللي يريحك: أخضر أو بينك أو أزرق، وكمان الوضع الليلي.',hash:'#me',t:()=>hc('الشكل')},
+  {h:'نسخة احتياطية',p:'احفظ نسخة من بياناتك في ملف عندك، وارجع ليها وقت ما تحتاج.',hash:'#me',t:()=>hc('نسخة احتياطية')}];
  let tI=0,zEl=null;
  const zOff=()=>{if(zEl){zEl.style.transform=zEl.dataset.ot||'';zEl.style.transition='';zEl.removeAttribute('data-ot');zEl=null}};
  const tClose=()=>{zOff();const o=document.getElementById('tourov');if(o)o.remove();window.removeEventListener('resize',tPos);st('tour','1')};
@@ -400,7 +400,7 @@ const _meG=H.me;H.me=()=>{let h=_meG();const cur=g('theme')||'أخضر';h=h.repl
   document.getElementById('tournx').onclick=()=>{if(tI<TS.length-1){tI++;go2()}else{tClose();location.hash='#home'}};document.getElementById('tourskip').onclick=tClose;tPos()};
  const go2=()=>{const s=TS[tI];if((location.hash||'#home')!==s.hash){zOff();location.hash=s.hash;setTimeout(tShow,500)}else tShow()};
  window.tourOpen=()=>{tI=0;go2()};
- const _meT=H.me;H.me=()=>{const h=_meT();const c='<div class="card"><h3>جولة سريعة</h3><p class="note">٥ خطوات بتنوّرلك كل جزء على الشاشة.</p><button class="btn" onclick="tourOpen()">ابدئي الجولة</button></div><div class="card"><h3>تجربة التنبيه</h3><p class="note">بعد ما تفعّلي التنبيهات، اضغطي هنا وهيجيلك تنبيه «عندك مهمة» خلال دقيقة. بيتأكد إن التنبيه بيوصل لجهازك فعلًا.</p><button class="btn" onclick="pushTest()">جرّبي التنبيه</button><p class="note" id="ptmsg" role="status"></p></div>';const k='<div class="card"><h3>الوضع</h3>';return h.includes(k)?h.replace(k,c+k):h+c};
+ const _meT=H.me;H.me=()=>{const h=_meT();const c='<div class="card"><h3>جولة سريعة</h3><p class="note">٥ خطوات بتنوّرلك كل جزء على الشاشة.</p><button class="btn" onclick="tourOpen()">ابدأ الجولة</button></div><div class="card"><h3>تجربة التنبيه</h3><p class="note">بعد ما تفعّلي التنبيهات، اضغطي هنا وهيجيلك تنبيه «عندك مهمة» خلال دقيقة. بيتأكد إن التنبيه بيوصل لجهازك فعلًا.</p><button class="btn" onclick="pushTest()">جرّبي التنبيه</button><p class="note" id="ptmsg" role="status"></p></div>';const k='<div class="card"><h3>الوضع</h3>';return h.includes(k)?h.replace(k,c+k):h+c};
  if(NEWU){setTimeout(()=>{if(D.tour===undefined&&!window.PLOCK)tourOpen()},600)}
 }
 try{render()}catch(e){}
