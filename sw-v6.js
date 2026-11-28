@@ -1,0 +1,6 @@
+const C='sakan-v6-2',F=['./v6.html','./v6x.js','./manifest-v6.webmanifest','./v4-icon-192.png','./v4-icon-512.png','./v4-apple-touch-180.png','./config.json','./adhkar.json','./q1.json','./q2.json','./q3.json','./q4.json','./q5.json','./q6.json','./q7.json'];
+self.addEventListener('install',e=>e.waitUntil(caches.open(C).then(c=>Promise.all(F.map(u=>c.add(u).catch(()=>0)))).then(()=>self.skipWaiting())));
+self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x.startsWith('sakan-v6')&&x!==C).map(x=>caches.delete(x)))).then(()=>self.clients.claim())));
+self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;const u=new URL(e.request.url);if(u.origin!==location.origin)return;e.respondWith(fetch(e.request).then(r=>{if(r.ok){const k=r.clone();caches.open(C).then(c=>c.put(e.request,k))}return r}).catch(()=>caches.match(e.request).then(m=>m||caches.match('./v6.html'))))});
+self.addEventListener('push',e=>{e.waitUntil(self.registration.showNotification('سَكَن',{body:'عندك مهمة',icon:'./v4-icon-192.png',tag:'sakan-task'}))});
+self.addEventListener('notificationclick',e=>{e.notification.close();e.waitUntil(clients.matchAll({type:'window'}).then(l=>{for(const c of l){if(c.url.includes('v6.html')&&'focus' in c)return c.focus()}return clients.openWindow('./v6.html')}))});
