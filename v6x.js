@@ -68,7 +68,7 @@ const oHl=H.health;H.health=()=>{const h=wrapS(oHl(),'hr',HZ);return h.replace(/
 /* personal diary inside يومياتي: dated entries, device-only (localStorage key djr, never synced) */
 const djL=()=>g('djr',[]);
 const djT=()=>{const t=g('djt',[]);return Array.isArray(t)?t.filter(x=>typeof x==='string'&&x.trim()).map(x=>x.trim().slice(0,60)).slice(0,5):[]};
-window.djQs=cur=>{if(!cur)return djT().length?djT():null;if(!Array.isArray(cur.q))return null;const L=cur.q.map(x=>x.l);djT().forEach(l=>{if(L.indexOf(l)<0&&L.length<8)L.push(l)});return L};
+window.djQs=cur=>{if(!cur)return djT().length?djT():null;if(!Array.isArray(cur.q))return null;return cur.q.map(x=>x.l)};
 window.djSave=()=>{const v=i=>(($('#'+i)||{}).value||'').trim().slice(0,2000),L=djL().slice(),id=window._dje,cur=id?L.find(x=>x.id===id):null,qs=djQs(cur);let ent;
  if(qs){const q=qs.map((l,i)=>({l,a:v('djq'+i)})).filter(x=>x.a);if(!q.length)return;ent={q}}
  else{const f=v('djf'),j=v('djj'),u=v('dju'),h=v('djh'),s2=v('djs');if(!(f||j||u||h||s2))return;ent={f,j,u,h,s:s2}}
@@ -90,8 +90,8 @@ const djPrintCard=()=>{const t=today(),f=window._pf||new Date(Date.now()-29*864e
 window.djPrint=()=>{const m=x=>{const el=document.getElementById('djpm');if(el)el.textContent=x};const a=(document.getElementById('djpf')||{}).value,b=(document.getElementById('djpt')||{}).value;window._pf=a;window._pt=b;
  const R=djRange(a,b);if(!R){m('التواريخ مش مظبوطة. لازم «من» يكون قبل «إلى» أو نفس اليوم.');return}if(!R.length){m('مفيش صفحات في الفترة دي.');return}
  const old=document.getElementById('prn');if(old)old.remove();const d=document.createElement('div');d.id='prn';
- d.innerHTML='<h1 style="font-size:22px;margin:0 0 4px">مفكرتي</h1><p style="margin:0 0 14px;color:#555">من '+e(a)+' إلى '+e(b)+' · '+R.length+' صفحة</p>'+R.map(x=>'<div style="break-inside:avoid;border-bottom:1px solid #ccc;padding:8px 0"><b>'+e(x.d)+'</b>'+djBody(x).map(z=>'<div style="margin-top:4px"><small style="color:#666">'+e(z[0])+'</small><div style="white-space:pre-wrap">'+e(z[1])+'</div></div>').join('')+'</div>').join('')+'<p style="margin-top:16px;color:#777;font-size:12px">Mariam studio</p>';
- if(!document.getElementById('prnst')){const t=document.createElement('style');t.id='prnst';t.textContent='#prn{display:none}@media print{body>*:not(#prn){display:none!important}#prn{display:block!important;color:#000;background:#fff;padding:0;direction:rtl;font-family:sans-serif}}';document.head.appendChild(t)}
+ d.innerHTML='<h1 style="font-size:22px;margin:0 0 4px">مفكرتي <small style="font-size:12px;color:#777;font-weight:normal">· Mariam studio</small></h1><p style="margin:0 0 14px;color:#555">من '+e(a)+' إلى '+e(b)+' · '+R.length+' صفحة</p>'+R.map(x=>'<div style="border-bottom:1px solid #ccc;padding:8px 0"><b>'+e(x.d)+'</b>'+djBody(x).map(z=>'<div style="margin-top:4px"><small style="color:#666">'+e(z[0])+'</small><div style="white-space:pre-wrap">'+e(z[1])+'</div></div>').join('')+'</div>').join('')+'';
+ if(!document.getElementById('prnst')){const t=document.createElement('style');t.id='prnst';t.textContent='#prn{display:none}@media print{@page{margin:14mm}html,body{background:#fff!important;background-image:none!important;margin:0!important;padding:0!important;min-height:0!important;height:auto!important}body>*:not(#prn){display:none!important}#prn{display:block!important;color:#000;background:#fff;padding:0;direction:rtl;font-family:sans-serif}}';document.head.appendChild(t)}
  document.body.appendChild(d);m('جهّزت '+R.length+' صفحة. لو قايمة الطباعة ما فتحتش، جرّب تاني.');try{window.print()}catch(er){m('الطباعة مش متاحة على المتصفح ده.')}};
 window.addEventListener('afterprint',()=>{const o=document.getElementById('prn');if(o)o.remove()});
 const djCard=()=>{const L=djL(),cur=window._dje?L.find(x=>x.id===window._dje):null,c=cur||{},qs=djQs(cur),ta=(id,lab,val)=>`<label class="note">${e(lab)}</label><textarea id="${id}" rows="2" maxlength="2000">${e(val||'')}</textarea>`;
