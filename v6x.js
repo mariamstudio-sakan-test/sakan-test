@@ -248,7 +248,7 @@ H.edu=()=>{shell('كورساتي');const cs=g('courses',[]);return `<div class="
 const PODS=[["الأنوثة والعلاقة بنفسك", [["Female Formula | سارة أُنسي", "«ثقتك في نفسك هتزيد لما تلبسي اللي شبهك مش التريند»", "الملابس والهوية والثقة، بالمصري · ٥٧ دقيقة", "https://zeno.fm/podcast/female-formula-by-alia-khafaga/episodes/female-formula-sart-ansy-thktk-fy-nfsk-htzyd-lma-tlbsy-ally-shbhk-msh-altrynd/"], ["رحلة أنثى", "«اكتشاف الذات: بين التفكير، المشاعر، والصمت»", "دعوة تسألي فيها نفسك «أنا مين؟» · ١٩ دقيقة", "https://poddtoppen.se/podcast/1759407306/%D8%B1%D8%AD%D9%84%D8%A9-%D8%A3%D9%86%D8%AB%D9%89/%D8%A7%D9%83%D8%AA%D8%B4%D8%A7%D9%81-%D8%A7%D9%84%D8%B0%D8%A7%D8%AA-%D8%A8%D9%8A%D9%86-%D8%A7%D9%84%D8%AA%D9%81%D9%83%D9%8A%D8%B1-%D8%A7%D9%84%D9%85%D8%B4%D8%A7%D8%B9%D8%B1-%D9%88%D8%A7%D9%84%D8%B5%D9%85%D8%AA"], ["رحلة أنثى", "«ما هو الحب؟ كيف تؤثر الأغاني والأفلام على أفكارنا؟»", "عن فهمنا للحب والعلاقات في ضوء القيم الإسلامية · ٢٣ دقيقة", "https://poddtoppen.se/podcast/1759407306/%D8%B1%D8%AD%D9%84%D8%A9-%D8%A3%D9%86%D8%AB%D9%89/%D9%85%D8%A7-%D9%87%D9%88-%D8%A7%D9%84%D8%AD%D8%A8-%D9%83%D9%8A%D9%81-%D8%AA%D8%A4%D8%AB%D8%B1-%D8%A7%D9%84%D8%A7%D8%BA%D8%A7%D9%86%D9%8A-%D9%88%D8%A7%D9%84%D8%A7%D9%81%D9%84%D8%A7%D9%85-%D8%B9%D9%84%D9%89-%D8%A3%D9%81%D9%83%D8%A7%D8%B1%D9%86%D8%A7"]]], ["تنظيم الوقت والعادات", [["مشروع برديس", "حلقة ٩٣ «وين عم بروح وقتي؟»", "تقسيم اليوم لبلوكات وتتبع الوقت، بلهجة شامية", "https://bardees.simplecast.com/episodes/93"], ["طمأنينة بودكاست", "«إزاي العادات الصغيرة بتشكّل حياتنا من غير ما نحس»", "تبني عادة من غير ضغط وتكملي حتى في الأيام التقيلة · ٥ دقايق", "https://castbox.fm/episode/%D8%A5%D8%B2%D8%A7%D9%8A-%D8%A7%D9%84%D8%B9%D8%A7%D8%AF%D8%A7%D8%AA-%D8%A7%D9%84%D8%B5%D8%BA%D9%8A%D8%B1%D8%A9-%D8%A8%D8%AA%D8%B4%D9%83%D9%91%D9%84-%D8%AD%D9%8A%D8%A7%D8%AA%D9%86%D8%A7-%D9%85%D9%86-%D8%BA%D9%8A%D8%B1-%D9%85%D8%A7-%D9%86%D8%AD%D8%B3-%E2%9C%A8-id6982515-id930706170"], ["بودكاست عقلية مع د. منعم", "«دليلك الكامل لتنظيم الوقت: إزاي تنجز كل اللي عايزه من غير ضغط؟»", "أولويات، المهم والعاجل، وتقليل التسويف · ٣٧ دقيقة", "https://app.podcastguru.io/podcast/c0d536998c7c6cd5475d835b45902064/episode/5a92498fe7f67220ceb425fcaf9323fa"], ["Female Formula", "«في السنة الجديدة: ازاي تلاقي وقت لنفسك؟» مع حنان البهي", "إدارة الوقت وإنك تدي لنفسك أولوية · ٤٨ دقيقة", "https://podparley.com/Episode/Details/fy-lsn-ljdyd-zy-tlqy-wqt-lnfsk-18a84a6ac68fb9c1-47d4ac"]]], ["إيمان وتدبر", [["فنجان", "«كيف نجعل القرآن أسلوب حياة» مع د. فهد القحطاني", "عن تدبر القرآن في الحياة اليومية، بلهجة سعودية · ساعتين و١١ دقيقة", "https://www.youtube.com/watch?v=2CSL0mTFA9E"], ["رحلة أنثى", "«كيف تستعدين لرمضان؟ خطة عملية لاستقبال الشهر الكريم بروحانية ونشاط»", "", "https://poddtoppen.se/podcast/1759407306/%D8%B1%D8%AD%D9%84%D8%A9-%D8%A3%D9%86%D8%AB%D9%89/%D9%83%D9%8A%D9%81-%D8%AA%D8%B3%D8%AA%D8%B9%D8%AF%D9%8A%D9%86-%D9%84%D8%B1%D9%85%D8%B6%D8%A7%D9%86-%D8%AE%D8%B7%D8%A9-%D8%B9%D9%85%D9%84%D9%8A%D8%A9-%D9%84%D8%A7%D8%B3%D8%AA%D9%82%D8%A8%D8%A7%D9%84-%D8%A7%D9%84%D8%B4%D9%87%D8%B1-%D8%A7%D9%84%D9%83%D8%B1%D9%8A%D9%85-%D8%A8%D8%B1%D9%88%D8%AD%D8%A7%D9%86%D9%8A%D8%A9-%D9%88%D9%86%D8%B4%D8%A7%D8%B7"], ["روايتهم 038", "«كيف نبني علاقة مع الله؟» مع د. هيفاء يونس", "الخشوع، الالتزام بالقرآن، وخطة للاقتراب من الله · أكتر من ساعة", "https://podcasts.apple.com/iq/podcast/%D9%83%D9%8A%D9%81-%D9%86%D8%A8%D9%86%D9%8A-%D8%B9%D9%84%D8%A7%D9%82%D8%A9-%D9%85%D8%B9-%D8%A7%D9%84%D9%84%D9%87-%D8%A8%D9%88%D8%AF%D9%83%D8%A7%D8%B3%D8%AA-%D8%B1%D9%88%D8%A7%D9%8A%D8%AA%D9%87%D9%85-038-%D8%AF-%D9%87%D9%8A%D9%81%D8%A7%D8%A1-%D9%8A%D9%88%D9%86%D8%B3/id1706999038?i=1000677458424"], ["طمأنينة بودكاست", "«سر الطمأنينة اللي ناس كتير غافلة عنه..الذِكر»", "الذكر وأذكار الصباح والمساء كعادة يومية · ٥ دقايق", "https://podparley.com/Episode/Details/sr-ltm-nyn-lly-ns-ktyr-gfl-nh-ldhikr-18ac7080ea1969e0-e117b5"], ["البساط أحمدي مع فهد السبيعي", "«رمضان: مفتاح لعلاقة أبدية مع القرآن» مع الشيخ صلاح الهاشم", "إنك تفضلي مرتبطة بالقرآن بعد رمضان · ٥٥ دقيقة", "https://ar.zarza.com/podcasts/%D8%A8%D9%88%D8%AF%D9%83%D8%A7%D8%B3%D8%AA-%D8%A7%D9%84%D8%A8%D8%B3%D8%A7%D8%B7-%D8%A7%D8%AD%D9%85%D8%AF%D9%8A-%D9%85%D8%B9-%D9%81%D9%87%D8%AF-%D8%A7%D9%84%D8%B3%D8%A8%D9%8A%D8%B9%D9%8A-6401416/episodio/%d8%b1%d9%85%d8%b6%d8%a7%d9%86-%d9%85%d9%81%d8%aa%d8%a7%d8%ad-%d9%84%d8%b9%d9%84%d8%a7%d9%82%d8%a9-%d8%a3%d8%a8%d8%af%d9%8a%d8%a9-%d9%85%d8%b9-%d8%a7%d9%84%d9%82%d8%b1%d8%a2%d9%86-%d8%a7%d9%84/"]]]];
 P.pod='M4 14v-2a8 8 0 0116 0v2M4 14h3v6H5a1 1 0 01-1-1zM20 14h-3v6h2a1 1 0 001-1z';
 if(!((CFG&&CFG.hidden)||[]).includes('pod')&&!SECS.some(x=>x[0]==='pod')){const k=SECS.findIndex(x=>x[0]==='play');SECS.splice(k<0?SECS.length:k+1,0,['pod',(CFG&&CFG.labels&&CFG.labels.pod)||'اسمعوا مع سكن','pod','c3'])}
-H.pod=()=>{shell('اسمعوا مع سكن','ترشيحات حلقات تسمعيها');return PODS.map(gp=>`<div class="card"><h3>${I('pod')} ${e(gp[0])}</h3>`+gp[1].map(it=>`<div class="row" style="display:block"><b>${e(it[0])}</b><br>${e(it[1])}${it[2]?`<br><small>${e(it[2])}</small>`:''}<a class="btn" href="${e(it[3])}" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;text-decoration:none;margin-top:8px">افتحي الحلقة</a></div>`).join('')+`</div>`).join('')+`<div class="card"><p class="note">دي ترشيحات للمعاينة، ما اتسمعتش كاملة، وبتفتح موقع خارجي. سكن مش صاحب المحتوى ومش بيخزّن صوت.</p></div>`};
+H.pod=()=>{shell('اسمعوا مع سكن','ترشيحات حلقات تسمعيها');return PODS.filter(gp=>!(isM()&&gp.aud==='f')).map(gp=>`<div class="card"><h3>${I('pod')} ${e(gp[0])}</h3>`+gp[1].map(it=>`<div class="row" style="display:block"><b data-nt>${e(it[0])}</b><br>${e(it[1])}${it[2]?`<br><small>${e(it[2])}</small>`:''}<a class="btn" href="${e(it[3])}" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;text-decoration:none;margin-top:8px">افتحي الحلقة</a></div>`).join('')+`</div>`).join('')+`<div class="card"><p class="note">دي ترشيحات للمعاينة، ما اتسمعتش كاملة، وبتفتح موقع خارجي. سكن مش صاحب المحتوى ومش بيخزّن صوت.</p></div>`};
 /* day/night mode: key 'mode' (نهاري default / ليلي / تلقائي = follow phone). Works with pink and green. */
 const dkEl=document.createElement('style');dkEl.textContent=`
 body.dk.dk{color-scheme:dark;--pk:#5a2a40;--pk2:#2e2432;--gr:#cdeacc;--gr2:#22302a;--yl:#332e22;--tx:#f3e9ee;--mut:#c9b6c0;background:#16111a;background-image:none}
@@ -283,4 +283,73 @@ const _rdR=render;render=function(){const r=_rdR.apply(this,arguments);const on=
 try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(g('mode','نهاري')==='تلقائي')render()})}catch(e){}
 window.setMode=m=>{st('mode',m);render()};
 const _meM=H.me;H.me=()=>{const h=_meM();const card=`<div class="card"><h3>الوضع</h3><div class="chips">${['نهاري','ليلي','تلقائي'].map(m=>`<button class="chip ${g('mode','نهاري')===m?'on':''}" onclick="setMode('${m}')">${m}</button>`).join('')}</div><p class="note">«تلقائي» يتبع وضع موبايلك. بيتحفظ على جهازك بس.</p></div>`;const k='<div class="card"><h3>تنبيهات الموبايل';return h.includes(k)?h.replace(k,card+k):h+card};
+/* ===== audience: gender choice (key 'gen' = أنثى / ذكر; 'gend' = chooser answered). Display personalization only, stored on this device. ===== */
+const isM=()=>g('gen','')==='ذكر';
+PODS[0].aud='f';
+/* masculine wording for men: word-level map of feminine address forms (kept for women as is) */
+const GX=(()=>{
+ const E={'إنتي':'إنت','انتي':'انت','بيكي':'بيك','ليكي':'ليك','جواكي':'جواك','عليكي':'عليك','معاكي':'معاك','منكي':'منك','كويسة':'كويس','مقصرة':'مقصر','فاكرة':'فاكر','عايزة':'عايز','محتاجة':'محتاج','جاهزة':'جاهز','حاسة':'حاسس','داخلة':'داخل','ماشية':'ماشي','عزيزة':'عزيز','للمبتدئات':'للمبتدئين','للمستخدمات':'للمستخدمين','ابدئي':'ابدأ','ابدأي':'ابدأ','تبدأي':'تبدأ','تقرأي':'تقرأ','اقري':'اقرا','أضيفي':'أضف','كلميني':'كلمني','رجعيه':'رجعه'};
+ const S=new Set('اكتب اختار افتح احفظ دوس حاول شيل خد اتأكد اضغط اسأل امسح ضيف شارك اقلب جرب ابعت انقل ادخل راجع تواصل سجل استريح اسمع وقفل دور رجع حرك تقدر تضيف تعدل تسجل تفعل تمسح تحس تتابع تخلص تفرح تتعب تثبت توصل تبلغ تشوف تفتح تعلم تفتخر تسمع تشتغل تعمل تنشر تلبس تسأل تكمل تفضل تكتب تحفظ تبعت تلون تبدل تقفل تحط تعاين ترجع تشارك تحاول تتقدم تخرج تمرن تبدأ تقرأ'.split(' '));
+ const P=new Set('خلصت فتحت وصلت بدأت كنت حاولت حسيت خرجت رجعت عملت مسحت تمرنت ختمت بلغت سجلت علمت غيرت فعلت كملت لقيت اتعلمت زرعت خدت كتبت أخدت كلمت'.split(' '));
+ const PRE=['','و','ف','ب','ه','ل','وب','وه','فب','بت','هت','وبت','وهت'];
+ const fix=raw=>{let n=raw.replace(/[\u064B-\u0652\u0640]/g,'');if(n.length<3)return raw;const e=E[n];if(e)return e;
+  const ek=/^(.*?)إنتِ$/.exec(raw.replace(/[\u064B-\u064F\u0651\u0652\u0640]/g,''));if(ek)return ek[1]+'إنت';
+  for(const pre of PRE){if(pre&&!n.startsWith(pre))continue;const r=n.slice(pre.length);if(!r)continue;
+   if(E[r])return pre+E[r];
+   let m=/^(.+?)ي(ه|ها|هم|ني|لي)?$/.exec(r);if(m){const st=m[1];if(S.has(st)||S.has('ت'+st)&&false)return pre+st+(m[2]||'')}
+   m=/^(.+?)تي(ه|ها|هم)?$/.exec(r);if(m&&P.has(m[1]+'ت'))return pre+m[1]+'ت'+(m[2]||'');
+  }
+  return raw};
+ const WR=/[\u0621-\u064A\u064B-\u0652\u0640]+/g;
+ const txt=s=>s.replace(WR,fix);
+ let busy=false;
+ const skip=el=>{for(let p=el;p;p=p.parentElement){const t=p.tagName;if(t==='SCRIPT'||t==='STYLE'||t==='TEXTAREA'||t==='INPUT'||(p.hasAttribute&&p.hasAttribute('data-nt')))return true}return false};
+ const run=root=>{if(!isM()||busy||!root)return;busy=true;try{
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const ns=[];while(w.nextNode())ns.push(w.currentNode);
+  ns.forEach(n=>{if(!n.parentElement||skip(n.parentElement))return;const o=n.nodeValue,v=txt(o);if(v!==o)n.nodeValue=v});
+  (root.querySelectorAll?root.querySelectorAll('[placeholder],[title],[aria-label]'):[]).forEach(el=>{if(skip(el))return;['placeholder','title','aria-label'].forEach(a=>{const o=el.getAttribute(a);if(o){const v=txt(o);if(v!==o)el.setAttribute(a,v)}})});
+ }finally{busy=false}};
+ return {txt,run,fix};
+})();
+(()=>{let q=0;const go2=()=>{if(q)return;q=requestAnimationFrame(()=>{q=0;GX.run(document.body)})};try{new MutationObserver(go2).observe(document.body,{childList:true,subtree:true,characterData:true})}catch(e){}})();
+{const _cf=window.confirm.bind(window),_al=window.alert.bind(window);window.confirm=m=>_cf(isM()?GX.txt(String(m)):m);window.alert=m=>_al(isM()?GX.txt(String(m)):m)}
+window.setGen=v=>{st('gen',v);st('gend',1);if(v==='ذكر'&&route()==='hawwa'){location.hash='#health'}render()};
+const _hHawwa=H.hawwa;H.hawwa=()=>{if(isM()){setTimeout(()=>{location.hash='#health'},0);return ''}return _hHawwa()};
+const _hHealth=H.health;H.health=()=>{const h=_hHealth();return isM()?h.replace(/<button[^>]*go\('hawwa'\)[^>]*>(?:(?!<\/button>)[\s\S])*<\/button>/,''):h};
+const genCard=()=>`<div class="card"><h3>أنا</h3><div class="chips">${['أنثى','ذكر'].map(m=>`<button class="chip ${g('gen','')===m?'on':''}" onclick="setGen('${m}')">${m}</button>`).join('')}</div><p class="note">الاختيار بيظبط شكل الكلام والأقسام اللي بتظهر (للرجال مفيش قسم حوّاء وبودكاست الأنوثة). مش بيتبعت لأي حد، وبيتحفظ على جهازك بس، وممكن تغيّره في أي وقت.</p></div>`;
+const _hHome2=H.home;H.home=()=>{const h=_hHome2();if(g('gen','')||g('gend',0))return h;return h.replace('</p></div>',`</p></div><div class="card" id="genq"><h3>اختار الأنسب</h3><div class="chips"><button class="chip" onclick="setGen('أنثى')">أنثى</button><button class="chip" onclick="setGen('ذكر')">ذكر</button></div><p class="note">بيظبط شكل الكلام وبعض الأقسام. على جهازك بس، وممكن تغيّره من حسابي.</p></div>`)};
+/* ===== blue theme (no flowers) ===== */
+const blEl=document.createElement('style');blEl.textContent=`
+body.bl{--pk:#c9d8ea;--pk2:#e8eff8;--gr:#17304f;--gr2:#dde8f5;--yl:#eef3f9;--tx:#1c2b3d;--mut:#5d7088;background:#eef3f9;background-image:none}
+body.bl .th{background:#17304f;box-shadow:0 4px 14px #0a1a3066}body.bl .th h1{color:#fff}body.bl .th small{color:#c9d8ea}body.bl .tu{display:none}
+body.bl .card,body.bl .bk,body.bl .ov .box{background:#fff;border:1px solid #c9d8ea;box-shadow:0 4px 0 #c9d8ea}
+body.bl .sec{border:1px solid #c9d8ea;box-shadow:0 4px 0 #c9d8ea}
+body.bl .c1,body.bl .c3,body.bl .q{background:#e8eff8}body.bl .c2,body.bl .c4{background:#fff}
+body.bl .btn{background:#2f5d8c;color:#fff;box-shadow:0 4px 0 #1d3f63}body.bl .btn.alt{background:#17304f;box-shadow:0 4px 0 #0a1a30}body.bl .btn.red{background:#b3414f}
+body.bl .chip,body.bl .pill,body.bl input,body.bl textarea,body.bl select,body.bl .pick{border-color:#c9d8ea;background:#fff}body.bl .pill{background:#e8eff8}
+body.bl .chip.on,body.bl .pill.on{background:#2f5d8c;color:#fff;border-color:#2f5d8c}
+body.bl .tabs{background:#17304f;border-top:3px solid #5b8fc7}body.bl .tabs a{color:#b6c8dd}body.bl .tabs a.on{color:#fff}
+body.bl .row{border-bottom-color:#dbe5f1}body.bl .bar{border-color:#2f5d8c}body.bl .bar i{background:#2f5d8c}body.bl .brand{color:#5d7088}body.bl .ph{background:#f1f6fb;border-color:#b6c8dd}
+body.bl .q small,body.bl .th small{color:#5d7088}body.bl .th small{color:#c9d8ea}
+body.bl .g .sec.wr{aspect-ratio:auto;min-height:104px;background:#fff;border:1px solid #c9d8ea;box-shadow:0 4px 0 #c9d8ea;border-radius:20px;padding:14px 8px}
+body.bl .wr svg.wz{display:none}body.bl .wr .wi{width:100%}body.bl .wr .wi .ic,body.bl .wr .wi b{color:#17304f}
+body.bl #grt>div:first-child{display:none}
+body.bl .sec.hr svg [stroke]:not([stroke=none]),body.bl .hbox svg [stroke]:not([stroke=none]){stroke:#2f5d8c!important}body.bl .hbox .sec,body.bl .hbox .sec *:not(svg):not(path):not(rect):not(line){color:#17304f!important}body.bl .hbox .sec svg{color:#2f5d8c!important}body.dk.dk.bl .hbox .sec{color:#cfe0f5!important}body.bl .sec.hr{color:#17304f}body.dk.dk.bl .sec.hr{color:#cfe0f5}
+body.bl input[type=checkbox]{-webkit-mask:none;mask:none;background:#fff;border:2px solid #7b9cc4;border-radius:12px;background-clip:border-box;background-image:none}
+body.bl input[type=checkbox]:checked{background-color:#2f5d8c;border-color:#2f5d8c;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-size:70%;background-position:center;background-repeat:no-repeat;-webkit-mask:none;mask:none}
+body.dk.dk.bl{--pk:#2a4466;--pk2:#1b2a40;--gr:#cfe0f5;--yl:#1b2a40;--tx:#e8eef7;--mut:#a9bbd0;background:#0d1522;background-image:none}
+body.dk.dk.bl .card,body.dk.dk.bl .bk,body.dk.dk.bl .ov .box{background:#121d2e;border:1px solid #2a4466;box-shadow:0 4px 0 #0008}
+body.dk.dk.bl .th{background:#0f2036}body.dk.dk.bl .tabs{background:#0f2036;border-top:3px solid #3a6aa0}
+body.dk.dk.bl .sec,body.dk.dk.bl .g .sec.wr{background:#121d2e;border:1px solid #2a4466;box-shadow:0 4px 0 #0008}
+body.dk.dk.bl .c1,body.dk.dk.bl .c2,body.dk.dk.bl .c3,body.dk.dk.bl .c4,body.dk.dk.bl .q{background:#1b2a40}
+body.dk.dk.bl input,body.dk.dk.bl textarea,body.dk.dk.bl select,body.dk.dk.bl .chip,body.dk.dk.bl .pill,body.dk.dk.bl .pick,body.dk.dk.bl .bar{background:#0e1624;border-color:#2a4466;color:var(--tx)}
+body.dk.dk.bl .chip.on,body.dk.dk.bl .pill.on{background:#2f5d8c;border-color:#2f5d8c;color:#fff}
+body.dk.dk.bl .btn.alt{background:#2f5d8c;color:#fff;box-shadow:0 4px 0 #1d3f63}
+body.dk.dk.bl .wr .wi b,body.dk.dk.bl .wr .wi .ic{color:#cfe0f5}
+body.dk.dk.bl .row{border-bottom-color:#23364f}body.dk.dk.bl .ph{background:#18283d;border-color:#2a4466}
+body.dk.dk.bl input[type=checkbox]{background:#0e1624;border-color:#4a7ab0}body.dk.dk.bl input[type=checkbox]:checked{background-color:#2f5d8c}
+`;document.head.appendChild(blEl);
+
+const _rdG=render;render=function(){const bl=(g('theme')||'أخضر')==='أزرق';const r=_rdG.apply(this,arguments);document.body.classList.toggle('bl',bl);if(bl){document.body.classList.remove('gt');const mt=document.querySelector('meta[name=theme-color]');if(mt)mt.content=document.body.classList.contains('dk')?'#0f2036':'#17304f'}return r};
+const _meG=H.me;H.me=()=>{let h=_meG();const cur=g('theme')||'أخضر';h=h.replace(/(data-o="أخضر">أخضر<\/button>)/,`$1<button class="chip ${cur==='أزرق'?'on':''}" data-o="أزرق">أزرق</button>`);const k='<div class="card"><h3>الشكل</h3>';return h.includes(k)?h.replace(k,genCard()+k):h+genCard()};
 try{render()}catch(e){}
