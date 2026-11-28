@@ -447,13 +447,14 @@ const _meG=H.me;H.me=()=>{let h=_meG();const cur=g('theme')||'أخضر';h=h.repl
 {
  const MC=['#7b5ea7','#5b8def','#b8b8b8','#7fbf7b','#f2b134'],pad=n=>String(n).padStart(2,'0');
  const nowY=()=>+today().slice(0,4);
- window.yrData=y=>{const out=[];for(let m=0;m<12;m++){const n=new Date(Date.UTC(y,m+1,0)).getUTCDate(),a=[];for(let d=1;d<=31;d++){if(d>n){a.push(null);continue}const v=g('mood'+y+'-'+pad(m+1)+'-'+pad(d),-1);a.push(Number.isInteger(v)&&v>=0&&v<=4?v:-1)}out.push(a)}return out};
+ window.yrData=y=>{const out=[];for(let m=0;m<12;m++){const n=new Date(Date.UTC(y,m+1,0)).getUTCDate(),a=[];for(let d=1;d<=31;d++){if(d>n){a.push(null);continue}const v=(y+'-'+pad(m+1)+'-'+pad(d))>today()?-1:g('mood'+y+'-'+pad(m+1)+'-'+pad(d),-1);a.push(Number.isInteger(v)&&v>=0&&v<=4?v:-1)}out.push(a)}return out};
  window.yrStat=y=>{const D2=yrData(y),t=today();let logged=0,days=0;for(let m=0;m<12;m++)for(let d=0;d<31;d++){const v=D2[m][d];if(v===null)continue;if(y+'-'+pad(m+1)+'-'+pad(d+1)>t)continue;days++;if(v>=0)logged++}return{logged,days}};
  window.yrNav=k=>{const y=(window._my||nowY())+k;if(y>nowY()||y<nowY()-20)return;window._my=y;render()};
  window.yrImg=()=>{try{const y=window._my||nowY(),D2=yrData(y),c=document.createElement('canvas');c.width=1080;c.height=1500;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,1080,1500);x.fillStyle='#4a2f3b';x.textAlign='center';x.font='bold 56px sans-serif';x.fillText('سنتك بالألوان '+y,540,100);
   const L=70,T=190,cw=(1080-2*L-60)/12,rh=(1500-T-150)/31;x.font='20px sans-serif';x.fillStyle='#777';for(let m=0;m<12;m++)x.fillText(String(m+1),L+60+cw*m+cw/2,T-14);
   for(let d=0;d<31;d++){x.fillStyle='#777';x.fillText(String(d+1),L+14,T+rh*d+rh/2+7);for(let m=0;m<12;m++){const v=D2[m][d];if(v===null)continue;x.beginPath();x.arc(L+60+cw*m+cw/2,T+rh*d+rh/2,Math.min(cw,rh)*0.36,0,7);if(v>=0){x.fillStyle=MC[v];x.fill()}else{x.strokeStyle='#e4d6dc';x.lineWidth=2;x.stroke()}}}
-  x.fillStyle='#4a2f3b';x.font='bold 30px sans-serif';x.fillText('Mariam studio',540,1450);
+  for(let i=0;i<5;i++){const cx=170+i*185,cy=1392;x.beginPath();x.arc(cx,cy,13,0,7);x.fillStyle=MC[i];x.fill();x.save();x.translate(cx+30,cy-22);x.scale(1.85,1.85);x.beginPath();x.arc(12,12,10.5,0,7);x.fillStyle='#fff';x.fill();x.strokeStyle='#e8739f';x.lineWidth=1.6;x.stroke();x.fillStyle='#4a2f3b';x.beginPath();x.arc(8.6,9.5,1.1,0,7);x.fill();x.beginPath();x.arc(15.4,9.5,1.1,0,7);x.fill();x.strokeStyle='#4a2f3b';x.lineWidth=1.5;x.lineCap='round';x.stroke(new Path2D(MO[i][0]));x.restore()}
+  x.fillStyle='#4a2f3b';x.font='bold 30px sans-serif';x.fillText('Mariam studio',540,1470);
   c.toBlob(b=>{if(!b){yrMsg('معرفتش أعمل الصورة.');return}const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='sakan-year-'+y+'.png';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},4000);window._yrb=b.size;yrMsg('بدأ التحميل. اتأكد إن الصورة في التحميلات. الصورة ألوان بس، من غير كتابة.')},'image/png')}catch(er){yrMsg('معرفتش أعمل الصورة.')}};
  const yrMsg=m=>{const el=document.getElementById('yrmsg');if(el)el.textContent=m};
  const yrCard=()=>{const y=window._my||nowY(),D2=yrData(y),S=yrStat(y);
