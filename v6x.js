@@ -343,4 +343,6 @@ body.dk.dk.bl input[type=checkbox]{background:#0e1624;border-color:#4a7ab0}body.
 
 const _rdG=render;render=function(){const bl=(g('theme')||'أخضر')==='أزرق';const r=_rdG.apply(this,arguments);document.body.classList.toggle('bl',bl);if(bl){document.body.classList.remove('gt');const mt=document.querySelector('meta[name=theme-color]');if(mt)mt.content=document.body.classList.contains('dk')?'#0f2036':'#17304f'}return r};
 const _meG=H.me;H.me=()=>{let h=_meG();const cur=g('theme')||'أخضر';h=h.replace(/(data-o="أخضر">أخضر<\/button>)/,`$1<button class="chip ${cur==='أزرق'?'on':''}" data-o="أزرق">أزرق</button>`);const k='<div class="card"><h3>الشكل</h3>';return h.includes(k)?h.replace(k,genCard()+k):h+genCard()};
+/* header portrait removed at owner request 28 Nov 18:48 (hidden, image file untouched) */
+{const ah=document.createElement('style');ah.textContent='#av{display:none!important}';document.head.appendChild(ah)}
 try{render()}catch(e){}
