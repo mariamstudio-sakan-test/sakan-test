@@ -371,4 +371,21 @@ const _meG=H.me;H.me=()=>{let h=_meG();const cur=g('theme')||'أخضر';h=h.repl
  window.wnClose=()=>{st('wn',WN);const b=document.getElementById('wnc');if(b)b.remove()};
  const _rdW=render;render=function(){const r=_rdW.apply(this,arguments);try{const m=document.getElementById('m');if(m&&g('wn')!==undefined&&g('wn')!==WN&&!document.getElementById('wnc')&&!window.PLOCK){const d=document.createElement('div');d.className='card';d.id='wnc';d.innerHTML='<h3>الجديد في سكن</h3><p class="note">نسخة احتياطية واسترجاع من ملف (من «حسابي»)، ووضع تلقائي يتبع موبايلك، وبودكاست جديد. يوميّاتك زي ما هي.</p><button class="btn" onclick="wnClose()">تمام</button>';m.insertBefore(d,m.firstChild)}}catch(er){}return r};
 }
+/* v26: push test button + 3-step first-open tour */
+{let NEWU=false;try{const ks=Object.keys(D).filter(k=>['gen','theme','mode','wn','uname','tour'].indexOf(k)<0);NEWU=ks.length===0&&D.tour===undefined}catch(e){}
+ const _pp=window.pushPlan;if(typeof _pp==='function')window.pushPlan=function(){const r=_pp.apply(this,arguments);try{if(window._pTest&&window._pTest>Date.now()+15000){r.times=[new Date(window._pTest).toISOString()].concat(r.times).slice(0,20)}}catch(e){}return r};
+ window.pushTest=async()=>{const m=document.getElementById('ptmsg'),say=t=>{if(m)m.textContent=t};
+  try{if(localStorage.getItem('sakan_push_on')!=='1'||!('Notification' in window)||Notification.permission!=='granted'){say('فعّلي التنبيهات الأول من الزر اللي فوق.');return}
+   window._pTest=Date.now()+45000;say('بجهّز التجربة...');const r=await pushSync();
+   if(String(r).indexOf('ok')===0)say('تمام. اقفلي التطبيق أو سيبيه، وخلال دقيقة تقريبًا هيجيلك تنبيه «عندك مهمة». لو ماجاش قوليلي.');else{window._pTest=0;say('ما قدرناش نجهّز التجربة دلوقتي. جرّبي بعدين.')}
+   setTimeout(()=>{window._pTest=0},150000)}catch(er){window._pTest=0;say('ما قدرناش نجهّز التجربة دلوقتي.')}};
+ const TS=[['أهلًا بيكي في سكن','كل اللي بتكتبيه (يوميات، صحة، كتب، مهام) بيتحفظ على موبايلك بس، مش بيتبعت لأي سيرفر.'],['الأقسام','من «دخول أقسام سكن» في الرئيسية هتلاقي علاقتي بربنا، يومياتي، صحتي، كتبي والتقويم وغيرهم.'],['حسابي','من «حسابي» تختاري الشكل والوضع الليلي، وتحفظي نسخة احتياطية من بياناتك في ملف عندك.']];
+ let tI=0;const tClose=()=>{const o=document.getElementById('tourov');if(o)o.remove();st('tour','1')};
+ const tShow=()=>{let o=document.getElementById('tourov');if(!o){o=document.createElement('div');o.id='tourov';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');o.style.cssText='position:fixed;inset:0;z-index:9998;background:#000a;display:flex;align-items:center;justify-content:center;padding:18px';document.body.appendChild(o)}
+  const s=TS[tI];o.innerHTML='<div class="card" style="max-width:420px;width:100%;margin:0"><p class="note" style="margin:0 0 6px">'+(tI+1)+' من '+TS.length+'</p><h3>'+s[0]+'</h3><p>'+s[1]+'</p><button class="btn" id="tournx">'+(tI<TS.length-1?'التالي':'يلا نبدأ')+'</button><button class="btn" id="tourskip" style="margin-top:8px;background:transparent;color:inherit;border:2px solid currentColor;box-shadow:none">'+(tI<TS.length-1?'تخطي':'إغلاق')+'</button></div>';
+  document.getElementById('tournx').onclick=()=>{if(tI<TS.length-1){tI++;tShow()}else tClose()};document.getElementById('tourskip').onclick=tClose};
+ window.tourOpen=()=>{tI=0;tShow()};
+ const _meT=H.me;H.me=()=>{const h=_meT();const c='<div class="card"><h3>جولة سريعة</h3><p class="note">٣ خطوات بتعرّفك على سكن.</p><button class="btn" onclick="tourOpen()">ابدئي الجولة</button></div><div class="card"><h3>تجربة التنبيه</h3><p class="note">بعد ما تفعّلي التنبيهات، اضغطي هنا وهيجيلك تنبيه «عندك مهمة» خلال دقيقة. بيتأكد إن التنبيه بيوصل لجهازك فعلًا.</p><button class="btn" onclick="pushTest()">جرّبي التنبيه</button><p class="note" id="ptmsg" role="status"></p></div>';const k='<div class="card"><h3>الوضع</h3>';return h.includes(k)?h.replace(k,c+k):h+c};
+ if(NEWU){setTimeout(()=>{if(D.tour===undefined&&!window.PLOCK)tourOpen()},600)}
+}
 try{render()}catch(e){}
