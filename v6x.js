@@ -345,4 +345,21 @@ const _rdG=render;render=function(){const bl=(g('theme')||'أخضر')==='أزر�
 const _meG=H.me;H.me=()=>{let h=_meG();const cur=g('theme')||'أخضر';h=h.replace(/(data-o="أخضر">أخضر<\/button>)/,`$1<button class="chip ${cur==='أزرق'?'on':''}" data-o="أزرق">أزرق</button>`);const k='<div class="card"><h3>الشكل</h3>';return h.includes(k)?h.replace(k,genCard()+k):h+genCard()};
 /* header portrait removed at owner request 28 Nov 18:48 (hidden, image file untouched) */
 {const ah=document.createElement('style');ah.textContent='#av{display:none!important}';document.head.appendChild(ah)}
+/* v24: backup/restore (file kept by the owner, never uploaded), auto mode for new users, whats-new card */
+{const WN='24';
+ try{const keys=Object.keys(D).filter(k=>['gen','theme','mode','wn','uname'].indexOf(k)<0);
+  if(D.mode===undefined&&keys.length===0)st('mode','تلقائي');
+  if(D.wn===undefined&&keys.length===0)st('wn',WN)}catch(e){}
+ const bkStat=m=>{const el=document.getElementById('bkmsg');if(el)el.textContent=m};
+ window.bkSave=()=>{try{const o={app:'sakan',ver:1,saved:new Date().toISOString(),data:D};const b=new Blob([JSON.stringify(o)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='sakan-backup-'+today()+'.json';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},4000);bkStat('اتحفظ الملف. خليه في مكان آمن، فيه يومياتك وصحتك.')}catch(er){bkStat('معرفتش أحفظ الملف.')}};
+ window.bkLoad=inp=>{const f=inp.files&&inp.files[0];inp.value='';if(!f)return;if(f.size>20e6){bkStat('الملف كبير قوي، مش ملف سكن.');return}
+  const r=new FileReader();r.onerror=()=>bkStat('معرفتش أقرأ الملف.');r.onload=()=>{let o;try{o=JSON.parse(r.result)}catch(er){bkStat('الملف ده مش نسخة سكن صالحة.');return}
+   if(!o||o.app!=='sakan'||o.ver!==1||!o.data||typeof o.data!=='object'||Array.isArray(o.data)){bkStat('الملف ده مش نسخة سكن صالحة.');return}
+   const n=Object.keys(o.data).length;if(!confirm('هيتبدّل اللي على الجهاز ده بمحتوى الملف ('+n+' عنصر). نكمل؟'))return;
+   const nd={};Object.keys(o.data).forEach(k=>{if(k!=='__proto__'&&k!=='constructor'&&k!=='prototype')nd[k]=o.data[k]});
+   D=nd;sv();render();setTimeout(()=>bkStat('اتسترجعت النسخة.'),50)};r.readAsText(f)};
+ const _meB=H.me;H.me=()=>{const h=_meB();const c='<div class="card"><h3>نسخة احتياطية</h3><p class="note">بتحفظي ملف على موبايلك فيه يومياتك وكتبك ومهامك وبيانات صحتك ودورتك. الملف مش بيروح لأي سيرفر، وإنتِ المسؤولة عن مكانه.</p><button class="btn" onclick="bkSave()">حفظ نسخة احتياطية</button><label class="btn" style="display:block;text-align:center;margin-top:8px">استرجاع من ملف<input type="file" accept=".json,application/json" style="display:none" onchange="bkLoad(this)"></label><p class="note" id="bkmsg" role="status"></p></div>';const k='<div class="card"><h3>الوضع</h3>';return h.includes(k)?h.replace(k,c+k):h+c};
+ window.wnClose=()=>{st('wn',WN);const b=document.getElementById('wnc');if(b)b.remove()};
+ const _rdW=render;render=function(){const r=_rdW.apply(this,arguments);try{const m=document.getElementById('m');if(m&&g('wn')!==undefined&&g('wn')!==WN&&!document.getElementById('wnc')&&!window.PLOCK){const d=document.createElement('div');d.className='card';d.id='wnc';d.innerHTML='<h3>الجديد في سكن</h3><p class="note">نسخة احتياطية واسترجاع من ملف (من «حسابي»)، ووضع تلقائي يتبع موبايلك، وبودكاست جديد. يوميّاتك زي ما هي.</p><button class="btn" onclick="wnClose()">تمام</button>';m.insertBefore(d,m.firstChild)}}catch(er){}return r};
+}
 try{render()}catch(e){}
