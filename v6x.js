@@ -95,7 +95,7 @@ const VEX=[['https://www.youtube.com/watch?v=O5YX5xg8Seg','British Heart Foundat
 const VST=[['https://www.nhs.uk/live-well/exercise/strength-and-resistance/body-blast-cool-down/','NHS (الخدمة الصحية البريطانية)','General cool down (10 minutes)','١٠ دقايق']];
 const dayNum=()=>{const t=new Date();return Math.floor(Date.UTC(t.getFullYear(),t.getMonth(),t.getDate())/864e5)};
 const vidCard=(lab,L)=>{const v=L[0];return `<div class="row" style="display:block"><b>${lab}</b><div dir="ltr" style="text-align:left">${e(v[2])}<br><small style="color:var(--mut)">${e(v[1])}</small></div><a class="btn" href="${v[0]}" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;text-decoration:none">افتحي الفيديو</a></div>`};
-const spVids=()=>`<div class="card"><h3>فيديو النهارده</h3>${vidCard('حركة ١٠ دقايق',VEX)}${vidCard('إطالة بعد التمرين ١٠ دقايق',VST)}<p class="note">الفيديوهات من جهات رسمية وبتفتح في صفحتها أو في يوتيوب، ومش بنتحكم فيها. الكلام بالإنجليزي. لو حسيتي بألم أو دوخة وقّفي، وده مش بديل لنصيحة دكتور.</p></div>`;
+const spVids=()=>`<div class="card"><h3>فيديو النهارده</h3>${vidCard('حركة ١٠ دقايق',VEX)}${vidCard('إطالة ١٠ دقايق (تمارين إطالة، مش يوجا)',VST)}<p class="note">الفيديوهات من جهات رسمية (BHF و NHS) وبتفتح عندهم، ومش بنتحكم فيها. الكلام بالإنجليزي، والمدرّبات بملابس رياضية، وفيه موسيقى خلفية في فيديو الحركة. لو حسيتي بألم أو دوخة وقّفي، وده مش بديل لنصيحة دكتور.</p></div>`;
 const spDays=()=>g('spd',{});
 window.spTog=d=>{const x=Object.assign({},spDays());if(x[d])delete x[d];else x[d]=1;st('spd',x);render()};
 const spFlow='<svg viewBox="0 0 24 24" width="100%" height="100%"><g>'+[0,1,2,3,4].map(i=>`<ellipse cx="12" cy="6.4" rx="3" ry="4.6" fill="#f27ca5" transform="rotate(${i*72} 12 12)"/>`).join('')+'</g><circle cx="12" cy="12" r="2.8" fill="#f7d56b"/></svg>';
@@ -103,7 +103,7 @@ const spGrid=()=>{const t=new Date(),y=t.getFullYear(),m=t.getMonth(),n=new Date
 window.waSet=n=>{const k='wa'+today();st(k,Math.max(0,Math.min(30,n)));render()};
 window.waGoal=v=>{const n=Math.round(+v);if(n>=1&&n<=30)st('wagoal',n);render()};
 const waCard=()=>{const gl=g('wagoal',8),n=+g('wa'+today(),0);let dr='';for(let i=0;i<Math.max(gl,n);i++)dr+=`<svg viewBox="0 0 24 24" width="28" height="28" style="margin:1px"><path d="M12 3C8 9 6 12 6 15a6 6 0 0012 0c0-3-2-6-6-12z" fill="${i<n?'#6bb6e8':'#dfe9ef'}"/></svg>`;return `<div class="card"><h3>شرب الميه</h3><div style="text-align:center">${dr}</div><div style="text-align:center;margin:6px 0"><b>${n}</b> من ${gl} كوباية</div><button class="btn" onclick="waSet(${n}+1)">كوباية زيادة</button><button class="chip" onclick="waSet(${n}-1)">كوباية أقل</button><label class="note">هدفي في اليوم (كوبايات)</label><input type="number" min="1" max="30" value="${gl}" onchange="waGoal(this.value)"><p class="note">رقم الهدف إنتِ اللي بتحطيه، مش توصية طبية. البيانات على جهازك بس.</p></div>`};
-const oSp=H.sport;H.sport=()=>{let h=oSp();h=h.replace(/<div class="card"><h3>فيديو ١٠ دقايق كل يوم<\/h3><div class="ph">[\s\S]*?<\/div>/,'<div class="card" style="display:none"></div>');return h+spGrid()+waCard()};
+const oSp=H.sport;H.sport=()=>{let h=oSp();h=h.replace(/<div class="card"><h3>فيديو ١٠ دقايق كل يوم<\/h3><div class="ph">[\s\S]*?<\/div>/,'<div class="card" style="display:none"></div>');return spVids()+h+spGrid()+waCard()};
 
 
 /* حوّاء: pink house-themed interior, logged-cycle circle (no ovulation marks), medication log */
